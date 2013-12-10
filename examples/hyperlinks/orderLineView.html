@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Simple Paging Grid - Linking Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="script/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="script/data.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+				var regex = /id=([^&]+)/;
+		        var id = regex.exec(window.location)[1];
+				var data = getData();
+				$.each(data, function(index,row) {
+					if (row.OrderLineID == id) {
+						$("#productTitle").html(row.Name);
+						return;
+					}	
+				});
+	 });
+	</script>
+</head>
+<body>
+    <header>
+      <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Simple Paging Grid - Hyperlink Example</a>
+        </div>
+      </div>
+    </header>
+    <section id="main">
+			<div class="container">
+				<div class="row">
+					<p>You selected <strong><em id="productTitle"></em></strong></p>
+					<p><a href="index.html">Back</a></p>
+				</div>
+			</div>
+    </section>
+</body>
+</html>

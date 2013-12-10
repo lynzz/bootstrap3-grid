@@ -1,0 +1,4 @@
+.DS_Store
+nuget/content
+*.nupkg
+tests/phantomjs
