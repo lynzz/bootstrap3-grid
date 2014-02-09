@@ -9,45 +9,47 @@
 
     <!-- Le styles -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="script/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="script/handlebars-1.0.rc.1.js"></script>
-    <script type="text/javascript" src="../../script/simplePagingGrid-0.6.0.0.js"></script>
+    <script type="text/javascript" src="../../sea-modules/seajs/seajs/2.1.1/sea-debug.js"></script>
+    <script src="../sea-config.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-		        var callIndex = 0;
-		        function getDataFunction(pageNumber, pageSize, sortColumn, sortOrder, callback) {
-		            callIndex++;
-		            var functionData = [
-		                { "OrderLineID": 1, "Name": "Pineapple", "Price": 1.50, "Quantity": 4, "CallIndex":callIndex },
-						{ "OrderLineID": 2, "Name": "Strawberry", "Price": 1.10, "Quantity": 40, "CallIndex":callIndex },
-						{ "OrderLineID": 3, "Name": "Oranges", "Price": 0.20, "Quantity": 8, "CallIndex":callIndex },
-						{ "OrderLineID": 4, "Name": "Apples", "Price": 1.50, "Quantity": 5, "CallIndex":callIndex },
-						{ "OrderLineID": 5, "Name": "Raspberries", "Price": 1.50, "Quantity": 20, "CallIndex":callIndex },
-						{ "OrderLineID": 6, "Name": "Pineapple", "Price": 1.50, "Quantity": 4, "CallIndex":callIndex },
-						{ "OrderLineID": 7, "Name": "Strawberry", "Price": 1.10, "Quantity": 40, "CallIndex":callIndex },
-						{ "OrderLineID": 8, "Name": "Oranges", "Price": 0.20, "Quantity": 8, "CallIndex":callIndex },
-						{ "OrderLineID": 9, "Name": "Apples", "Price": 1.50, "Quantity": 5, "CallIndex":callIndex },
-						{ "OrderLineID": 10, "Name": "Raspberries", "Price": 1.50, "Quantity": 20, "CallIndex":callIndex },
-						{ "OrderLineID": 11, "Name": "Pineapple", "Price": 1.50, "Quantity": 4, "CallIndex":callIndex },
-						{ "OrderLineID": 12, "Name": "Strawberry", "Price": 1.10, "Quantity": 40, "CallIndex":callIndex },
-						{ "OrderLineID": 13, "Name": "Oranges", "Price": 0.20, "Quantity": 8, "CallIndex":callIndex },
-						{ "OrderLineID": 14, "Name": "Apples", "Price": 1.50, "Quantity": 5, "CallIndex":callIndex },
-						{ "OrderLineID": 15, "Name": "Raspberries", "Price": 1.50, "Quantity": 20, "CallIndex":callIndex },
-					];
-					callback(functionData.slice(pageNumber * pageSize, pageNumber * pageSize + pageSize));
-		        };
-		    
-		        $("#exampleGrid").simplePagingGrid({
-		            columnNames: ["Name", "Price ($)", "Quantity", "Call Index"],
-		            columnKeys: ["Name", "Price", "Quantity", "CallIndex"],
-		            columnWidths: ["50%", "20%", "20%", "10%"],
-		            dataFunction: getDataFunction,
-		            minimumVisibleRows: 10,
-		            templates: {
-		            	emptyTemplate: '<p>Empty</p>'
-		            }
-		        });
-		    });
+        seajs.use(['$','../demo'], function($) {
+            $(document).ready(function() {
+                var callIndex = 0;
+                function getDataFunction(pageNumber, pageSize, sortColumn, sortOrder, callback) {
+                    callIndex++;
+                    var functionData = [
+                        { "OrderLineID": 1, "Name": "Pineapple", "Price": 1.50, "Quantity": 4, "CallIndex":callIndex },
+                        { "OrderLineID": 2, "Name": "Strawberry", "Price": 1.10, "Quantity": 40, "CallIndex":callIndex },
+                        { "OrderLineID": 3, "Name": "Oranges", "Price": 0.20, "Quantity": 8, "CallIndex":callIndex },
+                        { "OrderLineID": 4, "Name": "Apples", "Price": 1.50, "Quantity": 5, "CallIndex":callIndex },
+                        { "OrderLineID": 5, "Name": "Raspberries", "Price": 1.50, "Quantity": 20, "CallIndex":callIndex },
+                        { "OrderLineID": 6, "Name": "Pineapple", "Price": 1.50, "Quantity": 4, "CallIndex":callIndex },
+                        { "OrderLineID": 7, "Name": "Strawberry", "Price": 1.10, "Quantity": 40, "CallIndex":callIndex },
+                        { "OrderLineID": 8, "Name": "Oranges", "Price": 0.20, "Quantity": 8, "CallIndex":callIndex },
+                        { "OrderLineID": 9, "Name": "Apples", "Price": 1.50, "Quantity": 5, "CallIndex":callIndex },
+                        { "OrderLineID": 10, "Name": "Raspberries", "Price": 1.50, "Quantity": 20, "CallIndex":callIndex },
+                        { "OrderLineID": 11, "Name": "Pineapple", "Price": 1.50, "Quantity": 4, "CallIndex":callIndex },
+                        { "OrderLineID": 12, "Name": "Strawberry", "Price": 1.10, "Quantity": 40, "CallIndex":callIndex },
+                        { "OrderLineID": 13, "Name": "Oranges", "Price": 0.20, "Quantity": 8, "CallIndex":callIndex },
+                        { "OrderLineID": 14, "Name": "Apples", "Price": 1.50, "Quantity": 5, "CallIndex":callIndex },
+                        { "OrderLineID": 15, "Name": "Raspberries", "Price": 1.50, "Quantity": 20, "CallIndex":callIndex },
+                    ];
+                    callback(functionData.slice(pageNumber * pageSize, pageNumber * pageSize + pageSize));
+                };
+
+                $("#exampleGrid").simplePagingGrid({
+                    columnNames: ["Name", "Price ($)", "Quantity", "Call Index"],
+                    columnKeys: ["Name", "Price", "Quantity", "CallIndex"],
+                    columnWidths: ["50%", "20%", "20%", "10%"],
+                    dataFunction: getDataFunction,
+                    minimumVisibleRows: 10,
+                    templates: {
+                        emptyTemplate: '<p>Empty</p>'
+                    }
+                });
+            });
+        })
+
 	</script>
 </head>
 <body>

@@ -9,48 +9,50 @@
 
     <!-- Le styles -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="script/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="script/handlebars-1.0.rc.1.js"></script>
-    <script type="text/javascript" src="../../script/simplePagingGrid-0.6.0.0.js"></script>
+    <script type="text/javascript" src="../../sea-modules/seajs/seajs/2.1.1/sea-debug.js"></script>
+    <script src="../sea-config.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-				var rows = [];
-		        var rowNumber;
-		        var numberOfRows = 30;
-		        for(rowNumber = 0; rowNumber < numberOfRows; rowNumber++) {
-		            rows.push({
-		                "OrderLineID": rowNumber,
-		                "Name": "Product " + rowNumber,
-		                "Price": Math.floor(Math.random() * 100),
-		                "Quantity": Math.floor(Math.random() * 100)
-		            });
-		        }
-		        
-            	$("#exampleGrid").simplePagingGrid({
-                columnNames: ["Name", "Price ($)", "Quantity"],
-                columnKeys: ["Name", "Price", "Quantity"],
-                columnWidths: ["50%", "25%", "25%"],
-                data: rows
-		        });
+        seajs.use(['$', '../demo'], function($) {
+            $(document).ready(function() {
+                var rows = [];
+                var rowNumber;
+                var numberOfRows = 30;
+                for(rowNumber = 0; rowNumber < numberOfRows; rowNumber++) {
+                    rows.push({
+                        "OrderLineID": rowNumber,
+                        "Name": "Product " + rowNumber,
+                        "Price": Math.floor(Math.random() * 100),
+                        "Quantity": Math.floor(Math.random() * 100)
+                    });
+                }
 
-		        $("#addBtn").click(function(ev) {
-		        	ev.preventDefault();
-		        	rows.splice(0, 0, { "OrderLineID": rows.length + 1, "Name": "Product" + (rows.length + 1), "Price": Math.floor(Math.random() * 100), "Quantity": Math.floor(Math.random() * 100) });
-		        	$("#exampleGrid").simplePagingGrid("refresh");
-		        });
+                $("#exampleGrid").simplePagingGrid({
+                    columnNames: ["Name", "Price ($)", "Quantity"],
+                    columnKeys: ["Name", "Price", "Quantity"],
+                    columnWidths: ["50%", "25%", "25%"],
+                    data: rows
+                });
 
-		        $("#emptyBtn").click(function(ev) {
-		        	ev.preventDefault();
-		        	rows.length = 0;
-		        	$("#exampleGrid").simplePagingGrid("refresh");
-		        });
+                $("#addBtn").click(function(ev) {
+                    ev.preventDefault();
+                    rows.splice(0, 0, { "OrderLineID": rows.length + 1, "Name": "Product" + (rows.length + 1), "Price": Math.floor(Math.random() * 100), "Quantity": Math.floor(Math.random() * 100) });
+                    $("#exampleGrid").simplePagingGrid("refresh");
+                });
 
-		        $("#removeBtn").click(function(ev) {
-		        	ev.preventDefault();
-		        	rows.splice(0,1);
-		        	$("#exampleGrid").simplePagingGrid("refresh");
-		        });
-		    });
+                $("#emptyBtn").click(function(ev) {
+                    ev.preventDefault();
+                    rows.length = 0;
+                    $("#exampleGrid").simplePagingGrid("refresh");
+                });
+
+                $("#removeBtn").click(function(ev) {
+                    ev.preventDefault();
+                    rows.splice(0,1);
+                    $("#exampleGrid").simplePagingGrid("refresh");
+                });
+            });
+        })
+
 	</script>
 </head>
 <body>
