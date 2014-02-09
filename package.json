@@ -1,4 +1,37 @@
 {
-    "name": "bootstrap3-grid",
-    "version": "0.0.6"
+  "family": "zeus",
+  "name": "bootstrap3-grid",
+  "version": "0.6.0",
+  "description": "bootstrap3 grid",
+  "homepage": "https://github.com/lynzz/bootstrap3-grid",
+  "author": "lynzz",
+  "maintainers": [
+    "lynzz"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lynzz/bootstrap3-grid.git"
+  },
+  "bugs": {
+    "url": ""
+  },
+  "keywords": [],
+  "licenses": "MIT",
+  "spm": {
+    "output": [
+      "bootstrap3-grid.js",
+      "bootstrap3-grid.css"
+    ],
+    "alias": {
+      "jquery": "jquery/jquery/1.10.1/jquery"
+    },
+    "devAlias": {
+      "handlebars": "gallery/handlebars/1.0.2/handlebars",
+      "runtime": "gallery/handlebars/1.0.2/runtime",
+      "jquery": "jquery/jquery/1.10.1/jquery",
+      "sea": "seajs/seajs/2.1.1/sea",
+      "sea.js.map": "seajs/seajs/2.1.1/sea.js.map"
+    },
+    "engines": {}
+  }
 }
