@@ -515,7 +515,7 @@ define(function(require, exports, module) {
 
                     if (that._settings.postDataFunction !== null) {
                         var postData = $.extend({
-                            page: that._currentPage,
+                            pageIndex: that._currentPage,
                             pageSize: that._settings.pageSize,
                             sortColumn: that._sortedColumn,
                             sortOrder: that._sortOrder
@@ -704,7 +704,7 @@ define(function(require, exports, module) {
                         }
                     }
 
-                    if (localPageData.length < that._settings.minimumVisibleRows) {
+                    /*if (localPageData.length < that._settings.minimumVisibleRows) {
                         var emptyRowIndex;
                         var emptyRow;
                         for (emptyRowIndex = localPageData.length; emptyRowIndex < that._settings.minimumVisibleRows; emptyRowIndex++) {
@@ -718,7 +718,7 @@ define(function(require, exports, module) {
                             });
                             that._tbody.append(emptyRow);
                         }
-                    }
+                    }*/
                 }
                 if (that._fetchedData && that._firstRefresh) {
                     that._firstRefresh = false;
