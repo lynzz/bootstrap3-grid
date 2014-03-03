@@ -1,4 +1,4 @@
-define("zeus/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "gallery/handlebars/1.0.2/handlebars-debug" ], function(require, exports, module) {
+define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "gallery/handlebars/1.0.2/handlebars-debug" ], function(require, exports, module) {
     var jQuery = require("$-debug");
     var Handlebars = require("gallery/handlebars/1.0.2/handlebars-debug");
     (function($) {
@@ -453,7 +453,7 @@ define("zeus/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "gallery
                     that._showLoading();
                     if (that._settings.postDataFunction !== null) {
                         var postData = $.extend({
-                            page: that._currentPage,
+                            pageIndex: that._currentPage,
                             pageSize: that._settings.pageSize,
                             sortColumn: that._sortedColumn,
                             sortOrder: that._sortOrder
@@ -620,21 +620,6 @@ define("zeus/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "gallery
                             that._sourceData.currentPage = originalData;
                         } else {
                             that._sourceData = originalData;
-                        }
-                    }
-                    if (localPageData.length < that._settings.minimumVisibleRows) {
-                        var emptyRowIndex;
-                        var emptyRow;
-                        for (emptyRowIndex = localPageData.length; emptyRowIndex < that._settings.minimumVisibleRows; emptyRowIndex++) {
-                            emptyRow = $(that._settings.rowTemplates[rowTemplateIndex](rowTemplateIndex));
-                            rowTemplateIndex++;
-                            if (rowTemplateIndex >= that._settings.rowTemplates.length) {
-                                rowTemplateIndex = 0;
-                            }
-                            $.each(that._settings.columnKeys, function() {
-                                emptyRow.append(that._settings.templates.emptyCellTemplate());
-                            });
-                            that._tbody.append(emptyRow);
                         }
                     }
                 }
