@@ -19,3 +19,6 @@
 
 6. Refreshing a data array
 <http://lynzz.github.io/bootstrap3-grid/examples/dataArrayRefresh/index.html>
+
+7. Async grid
+<http://lynzz.github.io/bootstrap3-grid/examples/asyncGrid/index.html>
