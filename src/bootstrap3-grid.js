@@ -1,6 +1,5 @@
 define(function(require, exports, module) {
-
-    var jQuery = require('$');
+    var jQuery = require('jquery');
     var Handlebars = require('gallery/handlebars/1.0.2/handlebars');
 
     (function ($) {
@@ -41,6 +40,13 @@ define(function(require, exports, module) {
             return null;
         }
 
+        /**
+         * 表格类
+         *
+         * @class SimplePagingGrid
+         * @param {String} element 表格容器元素
+         * @param {Object} options 表格配置
+         */
         var SimplePagingGrid = function(element, options) {
             this._settings = options;
             this.$element = $(element);
@@ -824,7 +830,6 @@ define(function(require, exports, module) {
                 ajaxError: null,
                 showHeader: true,
                 pageNumber: 0,
-                bootstrapVersion: 3,
                 pagingEnabled: true,
                 urlWriter: defaultUrlWriter,
                 urlReader: defaultUrlReader,
@@ -834,59 +839,6 @@ define(function(require, exports, module) {
                 emptyTemplateCreated: null,
                 gridCreated: null
             }, options);
-
-            if (settings.bootstrapVersion === 2) {
-                templates.buttonBarTemplate = ' \
-                <div class="clearfix"> \
-                    {{#if showGotoPage}} \
-                        <div class="pull-right"  style="padding-left: 1em;"> \
-                            <div class="input-append" > \
-                                    <input style="width: 3em;" class="pagetextpicker" type="text" value="{{currentPage}}" /> \
-                                    <button class="btn pagetextpickerbtn" type="button">Go</button> \
-                            </div> \
-                        </div> \
-                    {{/if}} \
-                    <div class="pagination pull-right" style="margin-top: 0px"> \
-                        <ul> \
-                            {{#if isFirstPage}} \
-                                {{#if pageNumbersEnabled}} \
-                                    <li><a href="#" class="first"><i class="icon-fast-backward" style="opacity: 0.5"></i></a></li> \
-                                {{/if}} \
-                                <li><a href="#" class="previous"><i class="icon-step-backward" style="opacity: 0.5"></i></a></li> \
-                            {{/if}} \
-                            {{#unless isFirstPage}} \
-                                {{#if pageNumbersEnabled}} \
-                                    <li><a href="#" class="first"><i class="icon-fast-backward"></i></a></li> \
-                                {{/if}} \
-                                <li><a href="#" class="previous"><i class="icon-step-backward"></i></a></li> \
-                            {{/unless}} \
-                            {{#if pageNumbersEnabled}} \
-                                {{#each pages}} \
-                                    {{#if isCurrentPage}} \
-                                        <li class="active"><a href="#" class="pagenumber" data-pagenumber="{{pageNumber}}">{{displayPageNumber}}</a></li> \
-                                    {{/if}} \
-                                    {{#unless isCurrentPage}} \
-                                        <li><a href="#" class="pagenumber" data-pagenumber="{{pageNumber}}">{{displayPageNumber}}</a></li> \
-                                    {{/unless}} \
-                                {{/each}} \
-                            {{/if}} \
-                            {{#if isLastPage}} \
-                                <li><a href="#" class="next"><i class="icon-step-forward" style="opacity: 0.5"></i></a></li> \
-                                {{#if pageNumbersEnabled}} \
-                                    <li><a href="#" class="last"><i class="icon-fast-forward" style="opacity: 0.5"></i></a></li> \
-                                {{/if}} \
-                            {{/if}} \
-                            {{#unless isLastPage}} \
-                                <li><a href="#" class="next"><i class="icon-step-forward"></i></a></li> \
-                                {{#if pageNumbersEnabled}} \
-                                    <li><a href="#" class="last"><i class="icon-fast-forward"></i></a></li> \
-                                {{/if}} \
-                            {{/unless}} \
-                        </ul> \
-                    </div> \
-                </div>';
-                templates.sortableHeaderTemplate = '<th width="{{width}}">{{title}}<div class="sort-container pull-right"><ul class="sort"><i class="sort-ascending icon-arrow-up" style="opacity: 0.5" /><li class="sort-descending icon-arrow-down" style="opacity: 0.5" /></ul></div></th>';
-            }
 
             settings.templates = {};
             $.each(templates, function (index, value) {
