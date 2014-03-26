@@ -556,7 +556,7 @@ define(function(require, exports, module) {
                             cache: false,
                             dataType: 'json',
                             data: {
-                                page: that._currentPage,
+                                pageIndex: that._currentPage,
                                 pageSize: that._settings.pageSize,
                                 sortColumn: that._sortedColumn,
                                 sortOrder: that._sortOrder
