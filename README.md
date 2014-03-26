@@ -40,14 +40,5 @@ seajs.use('bootstrap3-grid', function(bootstrap3Grid) {
 });
 ```
 
-## Api
 
-Here is some details.
 
-## ChangeLog
-
-v0.6.0 2014-2-10
-
-* 提交的参数 page 改为 pageIndex
-* currentPage 改为 data.listData , totalRows 改为 data.totalCount, 并添加rowIndex
-* 去掉表格的空行
