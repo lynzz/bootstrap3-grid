@@ -1,0 +1,6 @@
+*.iml
+.idea/
+.svn/
+node_modules
+sea-modules
+examples/mvcSearch/
