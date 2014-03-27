@@ -3,6 +3,8 @@
 ---
 源码来自[Simple-Paging-Grid](https://github.com/JamesRandall/Simple-Paging-Grid)，把它改为了CMD模块的
 
+[![Coverage Status](https://coveralls.io/repos/lynzz/bootstrap3-grid/badge.png)](https://coveralls.io/r/lynzz/bootstrap3-grid)
+
 ---
 
 ## 官方例子
