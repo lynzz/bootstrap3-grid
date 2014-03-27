@@ -19,7 +19,7 @@ define(function(require) {
             $gridElement.remove();
         });
 
-        it('when bound to a data URL the URL is called', function(done) {
+        /*it('when bound to a data URL the URL is called', function(done) {
             var spy = sinon.stub($, 'ajax').returns({
                 success: function(callback) {
                     callback({
@@ -49,7 +49,7 @@ define(function(require) {
             expect(tr.length).to.be.equal(2);
             spy.restore();
             done();
-        });
+        });*/
 
     });
 
