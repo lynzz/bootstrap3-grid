@@ -92,6 +92,7 @@ define(function(require, exports, module) {
 
                 that._sortOrder = this._settings.sortOrder;
                 that._sortedColumn = this._settings.initialSortColumn;
+                that._initCheck();
                 that._parseUrl(false, false);
                 that._buildTable();
                 that._refreshData(false);
@@ -104,10 +105,113 @@ define(function(require, exports, module) {
                 if (that._settings.gridCreated !== null) {
                     that._settings.gridCreated();
                 }
+                that._bindCheckEvents();
+            },
+
+            /**
+             * 初始带有 check 功能
+             *
+             * @method _initCheck
+             * @private
+             */
+            _initCheck: function() {
+                var self = this;
+                var options = this._settings;
+                var checkColumnIndex = options.checkColumnIndex;
+                var cellTemplates = [];
+                var headerTemplates = [];
+                var CHECK_ALL_HTML = '<th width="30px"><input data-role="checkAll" type="checkbox" class="checkbox"/></th>';
+                var CHECK_ITEM_HTML = '<input type="checkbox" class="checkbox">';
+
+                // 有 checkbox
+                if (options.hasCheckbox) {
+                    var colSize = options.columnNames.length + 1;
+
+                    if (options.cellTemplates !== null) {
+                        this._settings.cellTemplates.splice(checkColumnIndex, 0, CHECK_ITEM_HTML);
+                    } else {
+                        for(var i = 0; i < colSize; i++) {
+                            if (i == checkColumnIndex) {
+                                cellTemplates[i] = CHECK_ITEM_HTML;
+                            } else {
+                                cellTemplates[i] = null;
+                            }
+                        }
+                        this._settings.cellTemplates = cellTemplates;
+                    }
+
+                    if (options.headerTemplates !== null) {
+                        this._settings.headerTemplates.splice(checkColumnIndex, 0, CHECK_ALL_HTML);
+                    } else {
+                        for(var j = 0; j < colSize; j++) {
+                            if (j == checkColumnIndex) {
+                                headerTemplates[j] = CHECK_ALL_HTML;
+                                break;
+                            } else {
+                                headerTemplates[j] = null;
+                            }
+                        }
+                        this._settings.headerTemplates = headerTemplates;
+                    }
+
+                    this._settings.columnNames.splice(checkColumnIndex, 0, 'rowIndex');
+                    this._settings.columnKeys.splice(checkColumnIndex, 0, 'rowIndex');
+                    this._settings.columnWidths.splice(checkColumnIndex, 0, '50px');
+                }
+            },
+
+            /**
+             * 绑定 check 事件
+             *
+             * @method _bindCheckEvents
+             * @private
+             */
+            _bindCheckEvents: function() {
+                if (!this._settings.hasCheckbox) {
+                    return;
+                }
+                var self = this;
+                var options = self._settings;
+                var $tbody = self.$element.find('tbody');
+                var $checkAll = this.$element.find('[data-role=checkAll]').first();
+
+                self.$element.on('click', 'input[type=checkbox]', function() {
+                    var $self = $(this);
+                    var $checks = $tbody.find('input[type=checkbox]');
+                    if ($self.data('role') == 'checkAll') {
+                        $checks.prop('checked', $self.prop('checked'));
+                        options.onCheckAll && options.onCheckAll.call(self, self._pageData);
+                    } else {
+                        var len = $checks.length;
+                        var checkedLen = self.$element.find('tbody :checked').length;
+                        var index = $checks.index(this);
+                        console.log(index)
+
+                        $checkAll.prop('checked', checkedLen === len);
+                        options.onCheck && options.onCheck.call(self, self._pageData[index]);
+                    }
+                });
+            },
+
+            checkAll: function(isCheck) {
+                var $checkAll = this.$element.find('[data-role=checkAll]').first();
+
+                if (!$checkAll.prop('checked') && isCheck) {
+                    $checkAll.trigger('click');
+                }
+
+                if ($checkAll.prop('checked') && !isCheck) {
+                    $checkAll.trigger('click');
+                }
+            },
+
+            _resetCheck: function() {
+                this.$element.find('[data-role=checkAll]').first().prop('checked', false);
             },
 
             _buildTable: function () {
                 var that = this;
+                var settings = that._settings;
                 that._table = $(that._settings.templates.tableTemplate());
                 that._thead = that._table.find("thead");
                 that._tbody = that._table.find("tbody");
@@ -130,7 +234,9 @@ define(function(require, exports, module) {
                         var headerCell = null;
 
                         width = that._settings.columnWidths.length > index ? that._settings.columnWidths[index] : "";
-                        if (that._settings.headerTemplates !== null && index < that._settings.headerTemplates.length && that._settings.headerTemplates[index] != null) {
+                        if (that._settings.hasCheckbox && index == settings.checkColumnIndex) {
+                            headerCell = $(that._settings.headerTemplates[index]);
+                        } else if (that._settings.headerTemplates !== null && index < that._settings.headerTemplates.length && that._settings.headerTemplates[index] != null) {
                             headerCell = $(that._settings.headerTemplates[index]({ width: width, title: columnName }));
                         }
 
@@ -623,6 +729,9 @@ define(function(require, exports, module) {
 
             _loadData: function() {
                 var that = this;
+                if (that._settings.hasCheckbox) {
+                    that._resetCheck();
+                }
                 if (that._pageData !== undefined && that._pageData.length === 0 && that._currentPage == 0 && that._settings.templates.emptyTemplate !== null) {
                     that.$element.empty();
                     that._buttonBar = undefined;
@@ -834,6 +943,12 @@ define(function(require, exports, module) {
                 urlWriter: defaultUrlWriter,
                 urlReader: defaultUrlReader,
                 urlUpdatingEnabled: true,
+
+                // checkbox
+                hasCheckbox: false,
+                checkColumnIndex: 0,
+                onCheckAll: null,
+                onCheck: null,
 
                 // Event Handlers
                 emptyTemplateCreated: null,
