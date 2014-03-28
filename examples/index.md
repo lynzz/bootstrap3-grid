@@ -22,3 +22,6 @@
 
 7. Async grid
 <http://lynzz.github.io/bootstrap3-grid/examples/asyncGrid/index.html>
+
+8. Check grid
+<http://lynzz.github.io/bootstrap3-grid/examples/checkGrid/index.html>
