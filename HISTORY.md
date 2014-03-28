@@ -2,6 +2,10 @@
 
 ---
 
+## 0.6.2
+
+`NEW` 添加 checkbox 支持
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持
