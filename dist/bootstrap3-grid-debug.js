@@ -1,5 +1,5 @@
-define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "gallery/handlebars/1.0.2/handlebars-debug" ], function(require, exports, module) {
-    var jQuery = require("$-debug");
+define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "gallery/handlebars/1.0.2/handlebars-debug" ], function(require, exports, module) {
+    var jQuery = require("jquery-debug");
     var Handlebars = require("gallery/handlebars/1.0.2/handlebars-debug");
     (function($) {
         var pluginName = "simplePagingGrid";
@@ -32,6 +32,13 @@ define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "galler
             }
             return null;
         }
+        /**
+         * 表格类
+         *
+         * @class SimplePagingGrid
+         * @param {String} element 表格容器元素
+         * @param {Object} options 表格配置
+         */
         var SimplePagingGrid = function(element, options) {
             this._settings = options;
             this.$element = $(element);
@@ -71,6 +78,7 @@ define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "galler
                 that.$element.empty();
                 that._sortOrder = this._settings.sortOrder;
                 that._sortedColumn = this._settings.initialSortColumn;
+                that._initCheck();
                 that._parseUrl(false, false);
                 that._buildTable();
                 that._refreshData(false);
@@ -80,9 +88,100 @@ define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "galler
                 if (that._settings.gridCreated !== null) {
                     that._settings.gridCreated();
                 }
+                that._bindCheckEvents();
+            },
+            /**
+             * 初始带有 check 功能
+             *
+             * @method _initCheck
+             * @private
+             */
+            _initCheck: function() {
+                var self = this;
+                var options = this._settings;
+                var checkColumnIndex = options.checkColumnIndex;
+                var cellTemplates = [];
+                var headerTemplates = [];
+                var CHECK_ALL_HTML = '<th width="30px"><input data-role="checkAll" type="checkbox" class="checkbox"/></th>';
+                var CHECK_ITEM_HTML = '<input type="checkbox" class="checkbox">';
+                // 有 checkbox
+                if (options.hasCheckbox) {
+                    var colSize = options.columnNames.length + 1;
+                    if (options.cellTemplates !== null) {
+                        this._settings.cellTemplates.splice(checkColumnIndex, 0, CHECK_ITEM_HTML);
+                    } else {
+                        for (var i = 0; i < colSize; i++) {
+                            if (i == checkColumnIndex) {
+                                cellTemplates[i] = CHECK_ITEM_HTML;
+                            } else {
+                                cellTemplates[i] = null;
+                            }
+                        }
+                        this._settings.cellTemplates = cellTemplates;
+                    }
+                    if (options.headerTemplates !== null) {
+                        this._settings.headerTemplates.splice(checkColumnIndex, 0, CHECK_ALL_HTML);
+                    } else {
+                        for (var j = 0; j < colSize; j++) {
+                            if (j == checkColumnIndex) {
+                                headerTemplates[j] = CHECK_ALL_HTML;
+                                break;
+                            } else {
+                                headerTemplates[j] = null;
+                            }
+                        }
+                        this._settings.headerTemplates = headerTemplates;
+                    }
+                    this._settings.columnNames.splice(checkColumnIndex, 0, "rowIndex");
+                    this._settings.columnKeys.splice(checkColumnIndex, 0, "rowIndex");
+                    this._settings.columnWidths.splice(checkColumnIndex, 0, "50px");
+                }
+            },
+            /**
+             * 绑定 check 事件
+             *
+             * @method _bindCheckEvents
+             * @private
+             */
+            _bindCheckEvents: function() {
+                if (!this._settings.hasCheckbox) {
+                    return;
+                }
+                var self = this;
+                var options = self._settings;
+                var $tbody = self.$element.find("tbody");
+                var $checkAll = this.$element.find("[data-role=checkAll]").first();
+                self.$element.on("click", "input[type=checkbox]", function() {
+                    var $self = $(this);
+                    var $checks = $tbody.find("input[type=checkbox]");
+                    if ($self.data("role") == "checkAll") {
+                        $checks.prop("checked", $self.prop("checked"));
+                        options.onCheckAll && options.onCheckAll.call(self, self._pageData);
+                    } else {
+                        var len = $checks.length;
+                        var checkedLen = self.$element.find("tbody :checked").length;
+                        var index = $checks.index(this);
+                        console.log(index);
+                        $checkAll.prop("checked", checkedLen === len);
+                        options.onCheck && options.onCheck.call(self, self._pageData[index]);
+                    }
+                });
+            },
+            checkAll: function(isCheck) {
+                var $checkAll = this.$element.find("[data-role=checkAll]").first();
+                if (!$checkAll.prop("checked") && isCheck) {
+                    $checkAll.trigger("click");
+                }
+                if ($checkAll.prop("checked") && !isCheck) {
+                    $checkAll.trigger("click");
+                }
+            },
+            _resetCheck: function() {
+                this.$element.find("[data-role=checkAll]").first().prop("checked", false);
             },
             _buildTable: function() {
                 var that = this;
+                var settings = that._settings;
                 that._table = $(that._settings.templates.tableTemplate());
                 that._thead = that._table.find("thead");
                 that._tbody = that._table.find("tbody");
@@ -102,7 +201,9 @@ define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "galler
                         var width;
                         var headerCell = null;
                         width = that._settings.columnWidths.length > index ? that._settings.columnWidths[index] : "";
-                        if (that._settings.headerTemplates !== null && index < that._settings.headerTemplates.length && that._settings.headerTemplates[index] != null) {
+                        if (that._settings.hasCheckbox && index == settings.checkColumnIndex) {
+                            headerCell = $(that._settings.headerTemplates[index]);
+                        } else if (that._settings.headerTemplates !== null && index < that._settings.headerTemplates.length && that._settings.headerTemplates[index] != null) {
                             headerCell = $(that._settings.headerTemplates[index]({
                                 width: width,
                                 title: columnName
@@ -487,7 +588,7 @@ define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "galler
                             cache: false,
                             dataType: "json",
                             data: {
-                                page: that._currentPage,
+                                pageIndex: that._currentPage,
                                 pageSize: that._settings.pageSize,
                                 sortColumn: that._sortedColumn,
                                 sortOrder: that._sortOrder
@@ -549,6 +650,9 @@ define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "galler
             },
             _loadData: function() {
                 var that = this;
+                if (that._settings.hasCheckbox) {
+                    that._resetCheck();
+                }
                 if (that._pageData !== undefined && that._pageData.length === 0 && that._currentPage == 0 && that._settings.templates.emptyTemplate !== null) {
                     that.$element.empty();
                     that._buttonBar = undefined;
@@ -675,19 +779,19 @@ define("lynzz/bootstrap3-grid/0.6.0/bootstrap3-grid-debug", [ "$-debug", "galler
                 ajaxError: null,
                 showHeader: true,
                 pageNumber: 0,
-                bootstrapVersion: 3,
                 pagingEnabled: true,
                 urlWriter: defaultUrlWriter,
                 urlReader: defaultUrlReader,
                 urlUpdatingEnabled: true,
+                // checkbox
+                hasCheckbox: false,
+                checkColumnIndex: 0,
+                onCheckAll: null,
+                onCheck: null,
                 // Event Handlers
                 emptyTemplateCreated: null,
                 gridCreated: null
             }, options);
-            if (settings.bootstrapVersion === 2) {
-                templates.buttonBarTemplate = '                 <div class="clearfix">                     {{#if showGotoPage}}                         <div class="pull-right"  style="padding-left: 1em;">                             <div class="input-append" >                                     <input style="width: 3em;" class="pagetextpicker" type="text" value="{{currentPage}}" />                                     <button class="btn pagetextpickerbtn" type="button">Go</button>                             </div>                         </div>                     {{/if}}                     <div class="pagination pull-right" style="margin-top: 0px">                         <ul>                             {{#if isFirstPage}}                                 {{#if pageNumbersEnabled}}                                     <li><a href="#" class="first"><i class="icon-fast-backward" style="opacity: 0.5"></i></a></li>                                 {{/if}}                                 <li><a href="#" class="previous"><i class="icon-step-backward" style="opacity: 0.5"></i></a></li>                             {{/if}}                             {{#unless isFirstPage}}                                 {{#if pageNumbersEnabled}}                                     <li><a href="#" class="first"><i class="icon-fast-backward"></i></a></li>                                 {{/if}}                                 <li><a href="#" class="previous"><i class="icon-step-backward"></i></a></li>                             {{/unless}}                             {{#if pageNumbersEnabled}}                                 {{#each pages}}                                     {{#if isCurrentPage}}                                         <li class="active"><a href="#" class="pagenumber" data-pagenumber="{{pageNumber}}">{{displayPageNumber}}</a></li>                                     {{/if}}                                     {{#unless isCurrentPage}}                                         <li><a href="#" class="pagenumber" data-pagenumber="{{pageNumber}}">{{displayPageNumber}}</a></li>                                     {{/unless}}                                 {{/each}}                             {{/if}}                             {{#if isLastPage}}                                 <li><a href="#" class="next"><i class="icon-step-forward" style="opacity: 0.5"></i></a></li>                                 {{#if pageNumbersEnabled}}                                     <li><a href="#" class="last"><i class="icon-fast-forward" style="opacity: 0.5"></i></a></li>                                 {{/if}}                             {{/if}}                             {{#unless isLastPage}}                                 <li><a href="#" class="next"><i class="icon-step-forward"></i></a></li>                                 {{#if pageNumbersEnabled}}                                     <li><a href="#" class="last"><i class="icon-fast-forward"></i></a></li>                                 {{/if}}                             {{/unless}}                         </ul>                     </div>                 </div>';
-                templates.sortableHeaderTemplate = '<th width="{{width}}">{{title}}<div class="sort-container pull-right"><ul class="sort"><i class="sort-ascending icon-arrow-up" style="opacity: 0.5" /><li class="sort-descending icon-arrow-down" style="opacity: 0.5" /></ul></div></th>';
-            }
             settings.templates = {};
             $.each(templates, function(index, value) {
                 settings.templates[index] = value !== null ? Handlebars.compile(value) : null;

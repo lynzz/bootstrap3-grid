@@ -54,7 +54,7 @@
     },
     map: [function(uri) {
       // resolve id
-      var m = uri.match(/jquery\/bootstrap3-grid\/0.6.1\/(.*)/);
+      var m = uri.match(/jquery\/bootstrap3-grid\/0.6.2\/(.*)/);
       if (m) {
         return resolve(m[1]);
       }
@@ -117,7 +117,7 @@
     <script>
       (function() {
         mocha.setup('bdd');
-        var tests = ["bootstrap3-grid-spec.js","core-spec.js","data-paging-spec.js","data-property-binding-spec.js","data-refresh-spec.js","data-url-binding-spec.js"];
+        var tests = ["check-spec.js","core-spec.js","data-property-binding-spec.js","data-url-binding-spec.js","paging-spec.js","refresh-spec.js"];
 
         var specs = [];
         for (var i = 0; i < tests.length; i++) {
