@@ -185,7 +185,6 @@ define(function(require, exports, module) {
                         var len = $checks.length;
                         var checkedLen = self.$element.find('tbody :checked').length;
                         var index = $checks.index(this);
-                        console.log(index)
 
                         $checkAll.prop('checked', checkedLen === len);
                         options.onCheck && options.onCheck.call(self, self._pageData[index]);
