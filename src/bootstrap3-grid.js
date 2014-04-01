@@ -793,7 +793,7 @@ define(function(require, exports, module) {
                                     td = $('<td>');
                                 }
 
-                                if (that._compiledCellTemplates !== null && that._compiledCellTemplates[index] !== null && index < that._compiledCellTemplates[index].length && that._compiledCellTemplates[index][rowIndex] !== null) {
+                                if (that._compiledCellTemplates !== null && that._compiledCellTemplates[index] !== null && rowIndex < that._compiledCellTemplates[index].length && that._compiledCellTemplates[index][rowIndex] !== null) {
                                     td.html(that._compiledCellTemplates[index][rowIndex](that._sourceData));
                                 } else {
                                     var value = rowData[propertyName];
@@ -929,7 +929,7 @@ define(function(require, exports, module) {
                 data: null,
                 postDataFunction: null,
                 minimumVisibleRows: 10,
-                showLoadingOverlay: true,
+                showLoadingOverlay: false,
                 showPageNumbers: true,
                 showGotoPage: true,
                 numberOfPageLinks: 10,
@@ -941,7 +941,7 @@ define(function(require, exports, module) {
                 pagingEnabled: true,
                 urlWriter: defaultUrlWriter,
                 urlReader: defaultUrlReader,
-                urlUpdatingEnabled: true,
+                urlUpdatingEnabled: false,
 
                 // checkbox
                 hasCheckbox: false,

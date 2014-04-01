@@ -6,6 +6,10 @@
 
 `NEW` 添加 checkbox 支持
 
+`fixed` 修复 pageSize为3且列数为3时， cellTemplates无效
+
+`CHANGED` 默认不启用 加载等待提示 和 url更新
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持

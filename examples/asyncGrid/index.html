@@ -23,7 +23,7 @@
                         result: 'success',
                         data: {
                             totalCount: 22,
-                            pageSize: 10,
+                            pageSize: 1,
                             pageIndex: 0,
                             listData: [
                                 { "OrderLineID": 1, "Name": "Pineapple", "Price": 1.50, "Quantity": 4 },
@@ -56,10 +56,13 @@
             });
             $(document).ready(function() {
                 $("#exampleGrid").simplePagingGrid({
-                    columnNames: ["Name", "Price ($)", "Quantity"],
-                    columnKeys: ["Name", "Price", "Quantity"],
-                    columnWidths: ["50%", "25%", "25%"],
-                    pageNumber: 1,
+                    columnNames: ["Name", "Price ($)", "Quantity", "操作"],
+                    cellTemplates: [null, null, null, '<a href="###" data-id="{{OrderLineID}}">删除</a>'],
+                    columnKeys: ["Name", "Price", "Quantity", null],
+                    columnWidths: ["25%", "25%", "25%", null],
+                    pageNumber: 0,
+                    pageSize: 1,
+                    minimumVisibleRows: 0,
                     dataUrl: '/getOrder'
 
                 });
