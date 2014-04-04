@@ -691,7 +691,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                     var localPageData = that._pageData === undefined ? [] : that._pageData;
                     $.each(localPageData, function(rowIndex, rowData) {
                         if (rowIndex < that._settings.pageSize) {
-                            var tr = $(that._settings.rowTemplates[rowTemplateIndex](rowTemplateIndex));
+                            var tr = $(that._settings.rowTemplates[rowTemplateIndex](rowData));
                             rowTemplateIndex++;
                             if (rowTemplateIndex >= that._settings.rowTemplates.length) {
                                 rowTemplateIndex = 0;
@@ -703,7 +703,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                                 } else {
                                     td = $("<td>");
                                 }
-                                if (that._compiledCellTemplates !== null && that._compiledCellTemplates[index] !== null && index < that._compiledCellTemplates[index].length && that._compiledCellTemplates[index][rowIndex] !== null) {
+                                if (that._compiledCellTemplates !== null && that._compiledCellTemplates[index] !== null && rowIndex < that._compiledCellTemplates[index].length && that._compiledCellTemplates[index][rowIndex] !== null) {
                                     td.html(that._compiledCellTemplates[index][rowIndex](that._sourceData));
                                 } else {
                                     var value = rowData[propertyName];
@@ -769,7 +769,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                 data: null,
                 postDataFunction: null,
                 minimumVisibleRows: 10,
-                showLoadingOverlay: true,
+                showLoadingOverlay: false,
                 showPageNumbers: true,
                 showGotoPage: true,
                 numberOfPageLinks: 10,
@@ -781,7 +781,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                 pagingEnabled: true,
                 urlWriter: defaultUrlWriter,
                 urlReader: defaultUrlReader,
-                urlUpdatingEnabled: true,
+                urlUpdatingEnabled: false,
                 // checkbox
                 hasCheckbox: false,
                 checkColumnIndex: 0,

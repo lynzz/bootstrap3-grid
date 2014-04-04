@@ -780,7 +780,7 @@ define(function(require, exports, module) {
 
                     $.each(localPageData, function(rowIndex, rowData) {
                         if (rowIndex < that._settings.pageSize) {
-                            var tr = $(that._settings.rowTemplates[rowTemplateIndex](rowTemplateIndex));
+                            var tr = $(that._settings.rowTemplates[rowTemplateIndex](rowData));
                             rowTemplateIndex++;
                             if (rowTemplateIndex >= that._settings.rowTemplates.length) {
                                 rowTemplateIndex = 0;

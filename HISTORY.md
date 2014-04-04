@@ -10,6 +10,8 @@
 
 `CHANGED` 默认不启用 加载等待提示 和 url更新
 
+`fixed` 修复 rowTemplate 无效
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持
