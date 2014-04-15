@@ -194,6 +194,20 @@ define(function(require, exports, module) {
                 });
             },
 
+            /**
+             * 获取已选中的数据
+             *
+             * @method getCheckedData
+             */
+            getCheckedData: function() {
+                var ret = [];
+                var self = this;
+                this.$element.find('tbody').find(':checkbox').each(function(i) {
+                    $(this).prop('checked') && ret.push(self._pageData[i]);
+                });
+                return ret;
+            },
+
             checkAll: function(isCheck) {
                 var $checkAll = this.$element.find('[data-role=checkAll]').first();
 

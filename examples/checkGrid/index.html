@@ -15,7 +15,7 @@
     <script type="text/javascript">
 
         seajs.use(['$', '../demo'], function($) {
-            $(document).ready(function() {
+            function initTable() {
                 $("#exampleGrid").simplePagingGrid({
                     hasCheckbox: true,
                     columnNames: ["Name", "Price ($)", "Quantity"],
@@ -51,11 +51,19 @@
                         { "OrderLineID": 21, "Name": "Beetroot", "Price": 0.30, "Quantity": 3 },
                         { "OrderLineID": 22, "Name": "Avocado", "Price": 2.30, "Quantity": 1 }]
                 });
+            }
+            $(document).ready(function() {
+                initTable();
+
                 $('#J_CheckAll').on('click', function() {
                     $("#exampleGrid").simplePagingGrid('checkAll', true);
                 });
                 $('#J_UncheckAll').on('click', function() {
                     $("#exampleGrid").simplePagingGrid('checkAll', false);
+                });
+                $('#J_Get').on('click', function() {
+                    var api = $("#exampleGrid").data('plugin_simplePagingGrid');
+                    console.log(api.getCheckedData());
                 });
             });
         });
@@ -80,6 +88,7 @@
                 <div>
                     <button type="button" class="btn btn-default" id="J_CheckAll">全选</button>
                     <button type="button" class="btn btn-default" id="J_UncheckAll">取消全选</button>
+                    <button type="button" class="btn btn-default" id="J_Get">获取已选数据</button>
                 </div>
 			</div>
 		</div>
