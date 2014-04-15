@@ -107,8 +107,9 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                 // 有 checkbox
                 if (options.hasCheckbox) {
                     var colSize = options.columnNames.length + 1;
+                    var count = this._settings.columnKeys.indexOf("rowIndex") + 1;
                     if (options.cellTemplates !== null) {
-                        this._settings.cellTemplates.splice(checkColumnIndex, 0, CHECK_ITEM_HTML);
+                        this._settings.cellTemplates.splice(checkColumnIndex, count, CHECK_ITEM_HTML);
                     } else {
                         for (var i = 0; i < colSize; i++) {
                             if (i == checkColumnIndex) {
@@ -132,9 +133,9 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                         }
                         this._settings.headerTemplates = headerTemplates;
                     }
-                    this._settings.columnNames.splice(checkColumnIndex, 0, "rowIndex");
-                    this._settings.columnKeys.splice(checkColumnIndex, 0, "rowIndex");
-                    this._settings.columnWidths.splice(checkColumnIndex, 0, "50px");
+                    this._settings.columnNames.splice(checkColumnIndex, count, "rowIndex");
+                    this._settings.columnKeys.splice(checkColumnIndex, count, "rowIndex");
+                    this._settings.columnWidths.splice(checkColumnIndex, count, "50px");
                 }
             },
             /**
