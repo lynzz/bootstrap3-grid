@@ -103,17 +103,17 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                 var cellTemplates = [];
                 var headerTemplates = [];
                 var CHECK_ALL_HTML = '<th width="30px"><input data-role="checkAll" type="checkbox" class="checkbox"/></th>';
-                var CHECK_ITEM_HTML = '<input type="checkbox" class="checkbox">';
+                var checkTemplate = options.checkTemplate;
                 // 有 checkbox
                 if (options.hasCheckbox) {
                     var colSize = options.columnNames.length + 1;
                     var count = this._settings.columnKeys.indexOf("rowIndex") + 1;
                     if (options.cellTemplates !== null) {
-                        this._settings.cellTemplates.splice(checkColumnIndex, count, CHECK_ITEM_HTML);
+                        this._settings.cellTemplates.splice(checkColumnIndex, count, checkTemplate);
                     } else {
                         for (var i = 0; i < colSize; i++) {
                             if (i == checkColumnIndex) {
-                                cellTemplates[i] = CHECK_ITEM_HTML;
+                                cellTemplates[i] = checkTemplate;
                             } else {
                                 cellTemplates[i] = null;
                             }
@@ -166,6 +166,19 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                         options.onCheck && options.onCheck.call(self, self._pageData[index]);
                     }
                 });
+            },
+            /**
+             * 获取已选中的数据
+             *
+             * @method getCheckedData
+             */
+            getCheckedData: function() {
+                var ret = [];
+                var self = this;
+                this.$element.find("tbody").find(":checkbox").each(function(i) {
+                    $(this).prop("checked") && ret.push(self._pageData[i]);
+                });
+                return ret;
             },
             checkAll: function(isCheck) {
                 var $checkAll = this.$element.find("[data-role=checkAll]").first();
@@ -786,6 +799,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                 // checkbox
                 hasCheckbox: false,
                 checkColumnIndex: 0,
+                checkTemplate: '<input type="checkbox" class="checkbox">',
                 onCheckAll: null,
                 onCheck: null,
                 // Event Handlers

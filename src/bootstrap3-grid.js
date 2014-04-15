@@ -121,7 +121,7 @@ define(function(require, exports, module) {
                 var cellTemplates = [];
                 var headerTemplates = [];
                 var CHECK_ALL_HTML = '<th width="30px"><input data-role="checkAll" type="checkbox" class="checkbox"/></th>';
-                var CHECK_ITEM_HTML = '<input type="checkbox" class="checkbox">';
+                var checkTemplate = options.checkTemplate;
 
                 // 有 checkbox
                 if (options.hasCheckbox) {
@@ -129,11 +129,11 @@ define(function(require, exports, module) {
                     var count = this._settings.columnKeys.indexOf('rowIndex') + 1;
 
                     if (options.cellTemplates !== null) {
-                        this._settings.cellTemplates.splice(checkColumnIndex, count, CHECK_ITEM_HTML);
+                        this._settings.cellTemplates.splice(checkColumnIndex, count, checkTemplate);
                     } else {
                         for(var i = 0; i < colSize; i++) {
                             if (i == checkColumnIndex) {
-                                cellTemplates[i] = CHECK_ITEM_HTML;
+                                cellTemplates[i] = checkTemplate;
                             } else {
                                 cellTemplates[i] = null;
                             }
@@ -962,6 +962,7 @@ define(function(require, exports, module) {
                 // checkbox
                 hasCheckbox: false,
                 checkColumnIndex: 0,
+                checkTemplate: '<input type="checkbox" class="checkbox">',
                 onCheckAll: null,
                 onCheck: null,
 

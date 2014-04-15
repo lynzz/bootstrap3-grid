@@ -21,6 +21,7 @@
                     columnNames: ["Name", "Price ($)", "Quantity"],
                     columnKeys: ["Name", "Price", "Quantity"],
                     columnWidths: ["50%", "25%", "25%"],
+                    checkTemplate: '<input type="checkbox" class="checkbox" data-id="{{OrderLineID}}">',
                     onCheck: function(data) {
                         console.log(data)
                     },
