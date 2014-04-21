@@ -12,6 +12,8 @@
 
 `fixed` 修复 rowTemplate 无效
 
+`CHANGED` 页面开始索引改为 1
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持

@@ -9,7 +9,9 @@ define(function(require, exports, module) {
         var rootLocation = window.location.href.replace(window.location.hash, '');
 
         function dataPage(data, currentPage, pageSize) {
-            return data.slice(currentPage * pageSize, currentPage * pageSize + pageSize);
+            var start = (currentPage - 1) * pageSize;
+            var end = (currentPage - 1) * pageSize + pageSize;
+            return data.slice(start, end);
         }
 
         function supportsHistoryApi() {
@@ -61,7 +63,7 @@ define(function(require, exports, module) {
             _tbody: undefined,
             _thead: undefined,
             _headerRow: undefined,
-            _currentPage: 0,
+            _currentPage: 1,
             _buttonBar: undefined,
             _firstButton: undefined,
             _previousButton: undefined,
@@ -86,7 +88,7 @@ define(function(require, exports, module) {
 
             init: function() {
                 var that = this;
-                that._currentPage = that._settings.pageNumber;
+                that._currentPage = 1;
 
                 that.$element.empty();
 
@@ -313,6 +315,7 @@ define(function(require, exports, module) {
                 that._buildButtonBar();
             },
 
+            // 页面总数
             _numberOfPages: function() {
                 if (this._numberOfRows !== null) {
                     return Math.ceil(this._numberOfRows / this._settings.pageSize);
@@ -335,7 +338,7 @@ define(function(require, exports, module) {
                     lastPage = (this._currentPage + 1) + this._settings.numberOfPageLinks / 2 - 1;
                     if (lastPage > totalPages) {
                         lastPage = totalPages;
-                        firstPage = lastPage - this._settings.numberOfPageLinks + 1;
+                        firstPage = lastPage - this._settings.numberOfPageLinks;
                         if (firstPage < 1) firstPage = 1;
                     }
                 }
@@ -409,15 +412,15 @@ define(function(require, exports, module) {
 
                 var paginationModel = {
                     pageNumbersEnabled: that._numberOfRows !== null && that._settings.showPageNumbers,
-                    isFirstPage: that._currentPage == 0,
-                    isLastPage: that._numberOfRows !== null ? that._currentPage >= totalPages - 1 : that._pageData !== undefined && that._pageData.length < that._settings.pageSize,
-                    currentPage: that._currentPage + 1,
+                    isFirstPage: that._currentPage == 1,
+                    isLastPage: that._numberOfRows !== null ? that._currentPage >= totalPages : that._pageData !== undefined && that._pageData.length < that._settings.pageSize,
+                    currentPage: that._currentPage,
                     totalPages: totalPages,
                     showGotoPage: that._numberOfRows !== null && that._settings.showGotoPage,
                     pages: []
                 };
                 for (pageIndex = pageRange.firstPage; pageIndex <= pageRange.lastPage; pageIndex++) {
-                    paginationModel.pages.push({ pageNumber: pageIndex - 1, displayPageNumber: pageIndex, isCurrentPage: (pageIndex - 1) == that._currentPage });
+                    paginationModel.pages.push({ pageNumber: pageIndex, displayPageNumber: pageIndex, isCurrentPage: pageIndex == that._currentPage });
                 }
                 that._buttonBarHtml = that._settings.templates.buttonBarTemplate(paginationModel);
                 that._buttonBar = $(that._buttonBarHtml);
@@ -451,7 +454,7 @@ define(function(require, exports, module) {
                     that._firstButton.click(function(event) {
                         event.preventDefault();
                         if (!paginationModel.isFirstPage) {
-                            that._currentPage = 0;
+                            that._currentPage = 1;
                             that._refreshData();
                         }
                     });
@@ -459,7 +462,7 @@ define(function(require, exports, module) {
                     that._lastButton.click(function(event) {
                         event.preventDefault();
                         if (!paginationModel.isLastPage) {
-                            that._currentPage = totalPages - 1;
+                            that._currentPage = totalPages;
                             that._refreshData();
                         }
                     });
@@ -477,12 +480,12 @@ define(function(require, exports, module) {
                     function gotoTextPickerPage() {
                         var value = that._pageTextPicker.val();
                         if ($.isNumeric(value)) {
-                            that._currentPage = 1 * value - 1;
-                            if (that._currentPage < 0) {
-                                that._currentPage = 0;
+                            that._currentPage = 1 * value;
+                            if (that._currentPage < 1) {
+                                that._currentPage = 1;
                             }
-                            if (that._currentPage > (totalPages - 1)) {
-                                that._currentPage = totalPages - 1;
+                            if (that._currentPage > totalPages) {
+                                that._currentPage = totalPages;
                             }
                             that._refreshData();
                         }
@@ -609,7 +612,7 @@ define(function(require, exports, module) {
                     }
                     else {
                         that._settings.dataUrl = newBinding;
-                        that._currentPage = 0;
+                        that._currentPage = 1;
                     }
                 }
 
@@ -747,7 +750,7 @@ define(function(require, exports, module) {
                 if (that._settings.hasCheckbox) {
                     that._resetCheck();
                 }
-                if (that._pageData !== undefined && that._pageData.length === 0 && that._currentPage == 0 && that._settings.templates.emptyTemplate !== null) {
+                if (that._pageData !== undefined && that._pageData.length === 0 && that._currentPage == 1 && that._settings.templates.emptyTemplate !== null) {
                     that.$element.empty();
                     that._buttonBar = undefined;
                     that._table = undefined;
@@ -953,7 +956,7 @@ define(function(require, exports, module) {
                 rowCreatedEvent: null,
                 ajaxError: null,
                 showHeader: true,
-                pageNumber: 0,
+                pageNumber: 1,
                 pagingEnabled: true,
                 urlWriter: defaultUrlWriter,
                 urlReader: defaultUrlReader,
