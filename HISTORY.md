@@ -14,6 +14,10 @@
 
 `CHANGED` 页面开始索引改为 1
 
+`NEW` 有checkbox时，添加行点击事件
+
+`CHANGED` 请求类型改为 get
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持

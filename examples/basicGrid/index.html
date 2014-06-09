@@ -17,9 +17,8 @@
         seajs.use(['$', '../demo'], function($) {
             $(document).ready(function() {
                 $("#exampleGrid").simplePagingGrid({
-                    columnNames: ["Name", "Price ($)", "Quantity"],
-                    columnKeys: ["Name", "Price", "Quantity"],
-                    columnWidths: ["50%", "25%", "25%"],
+                    columnNames: ["OrderLineID", "Name", "Price ($)", "Quantity"],
+                    columnKeys: ["OrderLineID", "Name", "Price", "Quantity"],
                     data: [
                         { "OrderLineID": 1, "Name": "Pineapple", "Price": 1.50, "Quantity": 4 },
                         { "OrderLineID": 2, "Name": "Fresh Spring Onions", "Price": 1.10, "Quantity": 40 },

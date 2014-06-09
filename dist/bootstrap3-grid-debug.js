@@ -154,7 +154,8 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                 var options = self._settings;
                 var $tbody = self.$element.find("tbody");
                 var $checkAll = this.$element.find("[data-role=checkAll]").first();
-                self.$element.on("click", "input[type=checkbox]", function() {
+                self.$element.on("click", "input[type=checkbox]", function(e) {
+                    e.stopPropagation();
                     var $self = $(this);
                     var $checks = $tbody.find("input[type=checkbox]");
                     if ($self.data("role") == "checkAll") {
@@ -167,6 +168,11 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                         $checkAll.prop("checked", checkedLen === len);
                         options.onCheck && options.onCheck.call(self, self._pageData[index]);
                     }
+                });
+                self.$element.on("click", "tbody > tr", function(e) {
+                    var $target = $(e.currentTarget);
+                    var $check = $target.find("[type=checkbox]").first();
+                    $check.trigger("click");
                 });
             },
             /**
@@ -568,65 +574,36 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                         that._pageData = [];
                     }
                     that._showLoading();
-                    if (that._settings.postDataFunction !== null) {
-                        var postData = $.extend({
-                            pageIndex: that._currentPage,
-                            pageSize: that._settings.pageSize,
-                            sortColumn: that._sortedColumn,
-                            sortOrder: that._sortOrder
-                        }, that._settings.postDataFunction());
-                        $.ajax({
-                            url: that._settings.dataUrl,
-                            cache: false,
-                            type: "POST",
-                            dataType: "json",
-                            data: postData,
-                            success: function(jsonData) {
-                                that._fetchedData = true;
-                                that._parseSourceData(jsonData);
-                                that._loadData();
-                                that._buildButtonBar();
-                                that._hideLoading();
-                                if (updateUrl) {
-                                    that._updateUrl();
-                                }
-                                if (that._settings.pageRenderedEvent !== null) that._settings.pageRenderedEvent(that._pageData);
-                            },
-                            error: function(jqXhr, textStatus, errorThrown) {
-                                if (that._settings.ajaxError !== null) {
-                                    that._settings.ajaxError(jqXhr, textStatus, errorThrown);
-                                }
+                    var postDataFunction = that._settings.postDataFunction;
+                    postDataFunction = typeof postDataFunction === "function" ? postDataFunction() : {};
+                    var postData = $.extend({
+                        pageIndex: that._currentPage,
+                        pageSize: that._settings.pageSize,
+                        sortColumn: that._sortedColumn,
+                        sortOrder: that._sortOrder
+                    }, postDataFunction);
+                    $.ajax({
+                        url: that._settings.dataUrl,
+                        cache: false,
+                        dataType: "json",
+                        data: postData,
+                        success: function(jsonData) {
+                            that._fetchedData = true;
+                            that._parseSourceData(jsonData);
+                            that._loadData();
+                            that._buildButtonBar();
+                            that._hideLoading();
+                            if (updateUrl) {
+                                that._updateUrl();
                             }
-                        });
-                    } else {
-                        $.ajax({
-                            url: that._settings.dataUrl,
-                            cache: false,
-                            dataType: "json",
-                            data: {
-                                pageIndex: that._currentPage,
-                                pageSize: that._settings.pageSize,
-                                sortColumn: that._sortedColumn,
-                                sortOrder: that._sortOrder
-                            },
-                            success: function(jsonData) {
-                                that._fetchedData = true;
-                                that._parseSourceData(jsonData);
-                                that._loadData();
-                                that._buildButtonBar();
-                                that._hideLoading();
-                                if (updateUrl) {
-                                    that._updateUrl();
-                                }
-                                if (that._settings.pageRenderedEvent !== null) that._settings.pageRenderedEvent(that._pageData);
-                            },
-                            error: function(jqXhr, textStatus, errorThrown) {
-                                if (that._settings.ajaxError !== null) {
-                                    that._settings.ajaxError(jqXhr, textStatus, errorThrown);
-                                }
+                            if (that._settings.pageRenderedEvent !== null) that._settings.pageRenderedEvent(that._pageData);
+                        },
+                        error: function(jqXhr, textStatus, errorThrown) {
+                            if (that._settings.ajaxError !== null) {
+                                that._settings.ajaxError(jqXhr, textStatus, errorThrown);
                             }
-                        });
-                    }
+                        }
+                    });
                 } else {
                     dataToSort = null;
                     if ($.isArray(that._settings.data)) {
