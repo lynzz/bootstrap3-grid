@@ -18,6 +18,8 @@
 
 `CHANGED` 请求类型改为 get
 
+`CHANGED` 请求参数 pageIndex 改为 pageNo
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持

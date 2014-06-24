@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-    var jQuery = require('jquery');
+    var jQuery = require('$');
     var Handlebars = require('gallery/handlebars/1.0.2/handlebars');
 
     (function ($) {
@@ -652,7 +652,7 @@ define(function(require, exports, module) {
                     var postDataFunction = that._settings.postDataFunction;
                     postDataFunction = typeof postDataFunction === 'function' ? postDataFunction() : {};
                     var postData = $.extend({
-                        pageIndex: that._currentPage,
+                        pageNo: that._currentPage,
                         pageSize: that._settings.pageSize,
                         sortColumn: that._sortedColumn,
                         sortOrder: that._sortOrder

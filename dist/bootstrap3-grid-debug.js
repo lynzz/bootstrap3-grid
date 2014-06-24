@@ -1,5 +1,5 @@
-define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "gallery/handlebars/1.0.2/handlebars-debug" ], function(require, exports, module) {
-    var jQuery = require("jquery-debug");
+define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "gallery/handlebars/1.0.2/handlebars-debug" ], function(require, exports, module) {
+    var jQuery = require("$-debug");
     var Handlebars = require("gallery/handlebars/1.0.2/handlebars-debug");
     (function($) {
         var pluginName = "simplePagingGrid";
@@ -577,7 +577,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "jquery-debug", "
                     var postDataFunction = that._settings.postDataFunction;
                     postDataFunction = typeof postDataFunction === "function" ? postDataFunction() : {};
                     var postData = $.extend({
-                        pageIndex: that._currentPage,
+                        pageNo: that._currentPage,
                         pageSize: that._settings.pageSize,
                         sortColumn: that._sortedColumn,
                         sortOrder: that._sortOrder
