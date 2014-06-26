@@ -192,7 +192,7 @@ define(function(require, exports, module) {
                         var index = $checks.index(this);
 
                         $checkAll.prop('checked', checkedLen === len);
-                        options.onCheck && options.onCheck.call(self, self._pageData[index]);
+                        options.onCheck && options.onCheck.call(self, self._pageData[index], $self.prop('checked'));
                     }
                 });
                 self.$element.on('click', 'tbody > tr', function(e) {
@@ -942,7 +942,7 @@ define(function(require, exports, module) {
                 // checkbox
                 hasCheckbox: false,
                 checkColumnIndex: 0,
-                checkTemplate: '<input type="checkbox" class="checkbox">',
+                checkTemplate: '<input type="checkbox" class="checkbox" value="">',
                 onCheckAll: null,
                 onCheck: null,
 

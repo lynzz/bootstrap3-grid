@@ -166,7 +166,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                         var checkedLen = self.$element.find("tbody :checked").length;
                         var index = $checks.index(this);
                         $checkAll.prop("checked", checkedLen === len);
-                        options.onCheck && options.onCheck.call(self, self._pageData[index]);
+                        options.onCheck && options.onCheck.call(self, self._pageData[index], $self.prop("checked"));
                     }
                 });
                 self.$element.on("click", "tbody > tr", function(e) {
