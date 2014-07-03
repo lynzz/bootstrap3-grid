@@ -158,15 +158,16 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     e.stopPropagation();
                     var $self = $(this);
                     var $checks = $tbody.find("input[type=checkbox]");
+                    var checked = $self.prop("checked");
                     if ($self.data("role") == "checkAll") {
-                        $checks.prop("checked", $self.prop("checked"));
-                        options.onCheckAll && options.onCheckAll.call(self, self._pageData);
+                        $checks.prop("checked", checked);
+                        options.onCheckAll && options.onCheckAll.call(self, self._pageData, checked);
                     } else {
                         var len = $checks.length;
                         var checkedLen = self.$element.find("tbody :checked").length;
                         var index = $checks.index(this);
                         $checkAll.prop("checked", checkedLen === len);
-                        options.onCheck && options.onCheck.call(self, self._pageData[index], $self.prop("checked"));
+                        options.onCheck && options.onCheck.call(self, self._pageData[index], checked);
                     }
                 });
                 self.$element.on("click", "tbody > tr", function(e) {
@@ -779,7 +780,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 // checkbox
                 hasCheckbox: false,
                 checkColumnIndex: 0,
-                checkTemplate: '<input type="checkbox" class="checkbox">',
+                checkTemplate: '<input type="checkbox" class="checkbox" value="">',
                 onCheckAll: null,
                 onCheck: null,
                 // Event Handlers
