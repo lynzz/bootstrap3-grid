@@ -179,7 +179,7 @@ define(function(require, exports, module) {
                 var $tbody = self.$element.find('tbody');
                 var $checkAll = this.$element.find('[data-role=checkAll]').first();
 
-                self.$element.on('click', 'input[type=checkbox]', function(e) {
+                self.$element.off('click', 'input[type=checkbox]').on('click', 'input[type=checkbox]', function(e) {
                     e.stopPropagation();
                     var $self = $(this);
                     var $checks = $tbody.find('input[type=checkbox]');
@@ -196,7 +196,7 @@ define(function(require, exports, module) {
                         options.onCheck && options.onCheck.call(self, self._pageData[index], checked);
                     }
                 });
-                self.$element.on('click', 'tbody > tr', function(e) {
+                self.$element.off('click', 'tbody > tr').on('click', 'tbody > tr', function(e) {
                     var $target = $(e.currentTarget);
                     var $check = $target.find('[type=checkbox]').first();
 

@@ -22,6 +22,8 @@
 
 `NEW` onCheck回调 添加 check 参数
 
+`fixed` check 事件绑定之前先进行销毁
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持

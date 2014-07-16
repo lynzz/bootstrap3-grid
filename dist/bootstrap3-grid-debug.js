@@ -154,7 +154,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 var options = self._settings;
                 var $tbody = self.$element.find("tbody");
                 var $checkAll = this.$element.find("[data-role=checkAll]").first();
-                self.$element.on("click", "input[type=checkbox]", function(e) {
+                self.$element.off("click", "input[type=checkbox]").on("click", "input[type=checkbox]", function(e) {
                     e.stopPropagation();
                     var $self = $(this);
                     var $checks = $tbody.find("input[type=checkbox]");
@@ -170,7 +170,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                         options.onCheck && options.onCheck.call(self, self._pageData[index], checked);
                     }
                 });
-                self.$element.on("click", "tbody > tr", function(e) {
+                self.$element.off("click", "tbody > tr").on("click", "tbody > tr", function(e) {
                     var $target = $(e.currentTarget);
                     var $check = $target.find("[type=checkbox]").first();
                     $check.trigger("click");
