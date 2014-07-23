@@ -171,12 +171,11 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     }
                 });
                 self.$element.off("click", "tbody > tr").on("click", "tbody > tr", function(e) {
-                    if (e.target.tagName.toLowerCase() === "a") {
-                        return false;
+                    if (e.target.tagName.toLowerCase() !== "a") {
+                        var $target = $(e.currentTarget);
+                        var $check = $target.find("[type=checkbox]").first();
+                        $check.trigger("click");
                     }
-                    var $target = $(e.currentTarget);
-                    var $check = $target.find("[type=checkbox]").first();
-                    $check.trigger("click");
                 });
             },
             /**

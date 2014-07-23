@@ -197,14 +197,13 @@ define(function(require, exports, module) {
           }
         });
         self.$element.off('click', 'tbody > tr').on('click', 'tbody > tr', function(e) {
-          if (e.target.tagName.toLowerCase() === 'a') {
-            return false;
+          if (e.target.tagName.toLowerCase() !== 'a') {
+            var $target = $(e.currentTarget);
+            var $check = $target.find('[type=checkbox]').first();
+
+            $check.trigger('click');
           }
-          var $target = $(e.currentTarget);
 
-          var $check = $target.find('[type=checkbox]').first();
-
-          $check.trigger('click');
         });
       },
 
