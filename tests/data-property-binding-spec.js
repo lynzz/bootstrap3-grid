@@ -77,6 +77,7 @@ define(function(require) {
                     emptyTemplate: "No rows"
                 }
             });
+            console.log(grid)
             expect($gridElement).to.equal(grid);
         });
 

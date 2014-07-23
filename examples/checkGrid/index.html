@@ -18,9 +18,9 @@
             function initTable() {
                 $("#exampleGrid").simplePagingGrid({
                     hasCheckbox: true,
-                    columnNames: ["Name", "Price ($)", "Quantity"],
-                    columnKeys: ["Name", "Price", "Quantity"],
-                    columnWidths: ["50%", "25%", "25%"],
+                    columnNames: ["Name", "Price ($)", "Quantity" ,'options'],
+                    columnKeys: ["Name", "Price", "Quantity", null],
+                    //columnWidths: ["50%", "25%", "25%"],
                     checkTemplate: '<input type="checkbox" class="checkbox" data-id="{{OrderLineID}}">',
                     onCheck: function(data, checked) {
                         console.log(checked)
@@ -28,6 +28,12 @@
                     onCheckAll: function(data, checked) {
                         console.log(checked)
                     },
+                    cellTemplates: [
+                      null,
+                      null,
+                      null,
+                      '<a href="javascript:;" class="btn-del">删除</a>'
+                    ],
                     data: [
                         { "OrderLineID": 1, "Name": "Pineapple", "Price": 1.50, "Quantity": 4 },
                         { "OrderLineID": 2, "Name": "Fresh Spring Onions", "Price": 1.10, "Quantity": 40 },
@@ -66,6 +72,10 @@
                     var api = $("#exampleGrid").data('plugin_simplePagingGrid');
                     console.log(api.getCheckedData());
                 });
+
+                $('.btn-del').click(function() {
+
+                })
             });
         });
 

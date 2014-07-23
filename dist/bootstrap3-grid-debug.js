@@ -35,12 +35,12 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
             return null;
         }
         /**
-         * 表格类
-         *
-         * @class SimplePagingGrid
-         * @param {String} element 表格容器元素
-         * @param {Object} options 表格配置
-         */
+     * 表格类
+     *
+     * @class SimplePagingGrid
+     * @param {String} element 表格容器元素
+     * @param {Object} options 表格配置
+     */
         var SimplePagingGrid = function(element, options) {
             this._settings = options;
             this.$element = $(element);
@@ -93,11 +93,11 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 that._bindCheckEvents();
             },
             /**
-             * 初始带有 check 功能
-             *
-             * @method _initCheck
-             * @private
-             */
+       * 初始带有 check 功能
+       *
+       * @method _initCheck
+       * @private
+       */
             _initCheck: function() {
                 var self = this;
                 var options = this._settings;
@@ -141,11 +141,11 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 }
             },
             /**
-             * 绑定 check 事件
-             *
-             * @method _bindCheckEvents
-             * @private
-             */
+       * 绑定 check 事件
+       *
+       * @method _bindCheckEvents
+       * @private
+       */
             _bindCheckEvents: function() {
                 if (!this._settings.hasCheckbox) {
                     return;
@@ -171,16 +171,19 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     }
                 });
                 self.$element.off("click", "tbody > tr").on("click", "tbody > tr", function(e) {
+                    if (e.target.tagName.toLowerCase() === "a") {
+                        return false;
+                    }
                     var $target = $(e.currentTarget);
                     var $check = $target.find("[type=checkbox]").first();
                     $check.trigger("click");
                 });
             },
             /**
-             * 获取已选中的数据
-             *
-             * @method getCheckedData
-             */
+       * 获取已选中的数据
+       *
+       * @method getCheckedData
+       */
             getCheckedData: function() {
                 var ret = [];
                 var self = this;
@@ -372,6 +375,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 }
                 var paginationModel = {
                     pageNumbersEnabled: that._numberOfRows !== null && that._settings.showPageNumbers,
+                    showPages: true,
                     isFirstPage: that._currentPage == 1,
                     isLastPage: that._numberOfRows !== null ? that._currentPage >= totalPages : that._pageData !== undefined && that._pageData.length < that._settings.pageSize,
                     currentPage: that._currentPage,
@@ -490,11 +494,11 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 }
             },
             /**
-             * currentPage 改为 data.listData , totalRows 改为 data.totalCount, 并添加rowIndex
-             *
-             * @param sourceData
-             * @private
-             */
+       * currentPage 改为 data.listData , totalRows 改为 data.totalCount, 并添加rowIndex
+       *
+       * @param sourceData
+       * @private
+       */
             _parseSourceData: function(sourceData) {
                 this._sourceData = sourceData;
                 if ($.isArray(sourceData)) {
@@ -737,7 +741,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
         $.fn[pluginName] = function(options) {
             var functionArguments = arguments;
             var templates = $.extend({
-                buttonBarTemplate: '<div class="clearfix form-inline">                                     {{#if showGotoPage}}                                         <div class="pull-right form-group" style="padding-left: 1em;">                                             <div class="input-group" style="width: 110px;">                                                 <input class="form-control pagetextpicker" type="text" value="{{currentPage}}" />                                                 <span class="input-group-btn">                                                     <button class="btn btn-default pagetextpickerbtn" type="button">Go</button>                                                 </span>                                             </div>                                         </div>                                     {{/if}}                                     <ul class="pagination pull-right" style="margin-top: 0px">                                         {{#if isFirstPage}}                                             {{#if pageNumbersEnabled}}                                                 <li><a href="#" class="first"><span class="glyphicon glyphicon-fast-backward" style="opacity: 0.5"></span></a></li>                                             {{/if}}                                             <li><a href="#" class="previous"><span class="glyphicon glyphicon-step-backward" style="opacity: 0.5"></span></a></li>                                         {{/if}}                                         {{#unless isFirstPage}}                                             {{#if pageNumbersEnabled}}                                                 <li><a href="#" class="first"><span class="glyphicon glyphicon-fast-backward"></span></a></li>                                             {{/if}}                                             <li><a href="#" class="previous"><span class="glyphicon glyphicon-step-backward"></span></a></li>                                         {{/unless}}                                         {{#if pageNumbersEnabled}}                                             {{#each pages}}                                                 {{#if isCurrentPage}}                                                     <li class="active"><a href="#" class="pagenumber" data-pagenumber="{{pageNumber}}">{{displayPageNumber}}</a></li>                                                 {{/if}}                                                 {{#unless isCurrentPage}}                                                     <li><a href="#" class="pagenumber" data-pagenumber="{{pageNumber}}">{{displayPageNumber}}</a></li>                                                 {{/unless}}                                             {{/each}}                                         {{/if}}                                         {{#if isLastPage}}                                             <li><a href="#" class="next"><span class="glyphicon glyphicon-step-forward" style="opacity: 0.5"></span></a></li>                                             {{#if pageNumbersEnabled}}                                                 <li><a href="#" class="last"><span class="glyphicon glyphicon-fast-forward" style="opacity: 0.5"></span></a></li>                                             {{/if}}                                         {{/if}}                                         {{#unless isLastPage}}                                             <li><a href="#" class="next"><span class="glyphicon glyphicon-step-forward"></span></a></li>                                             {{#if pageNumbersEnabled}}                                                 <li><a href="#" class="last"><span class="glyphicon glyphicon-fast-forward"></span></a></li>                                             {{/if}}                                         {{/unless}}                                     </ul>                                 </div>',
+                buttonBarTemplate: '{{#if showPages}}                               <div class="clearfix form-inline">                               {{#if showGotoPage}}                                 <div class="pull-right form-group" style="padding-left: 1em;">                                   <div class="input-group" style="width: 110px;">                                     <input class="form-control pagetextpicker" type="text" value="{{currentPage}}" />                                     <span class="input-group-btn">                                       <button class="btn btn-default pagetextpickerbtn" type="button">Go</button>                                     </span>                                   </div>                                 </div>                               {{/if}}                               <ul class="pagination pull-right" style="margin-top: 0px">                                 {{#if isFirstPage}}                                   {{#if pageNumbersEnabled}}                                     <li><a href="#" class="first"><span class="glyphicon glyphicon-fast-backward" style="opacity: 0.5"></span></a></li>                                   {{/if}}                                     <li><a href="#" class="previous"><span class="glyphicon glyphicon-step-backward" style="opacity: 0.5"></span></a></li>                                 {{/if}}                                 {{#unless isFirstPage}}                                   {{#if pageNumbersEnabled}}                                     <li><a href="#" class="first"><span class="glyphicon glyphicon-fast-backward"></span></a></li>                                   {{/if}}                                     <li><a href="#" class="previous"><span class="glyphicon glyphicon-step-backward"></span></a></li>                                 {{/unless}}                                 {{#if pageNumbersEnabled}}                                   {{#each pages}}                                     {{#if isCurrentPage}}                                       <li class="active"><a href="#" class="pagenumber" data-pagenumber="{{pageNumber}}">{{displayPageNumber}}</a></li>                                     {{/if}}                                     {{#unless isCurrentPage}}                                       <li><a href="#" class="pagenumber" data-pagenumber="{{pageNumber}}">{{displayPageNumber}}</a></li>                                     {{/unless}}                                   {{/each}}                                 {{/if}}                                 {{#if isLastPage}}                                   <li><a href="#" class="next"><span class="glyphicon glyphicon-step-forward" style="opacity: 0.5"></span></a></li>                                   {{#if pageNumbersEnabled}}                                     <li><a href="#" class="last"><span class="glyphicon glyphicon-fast-forward" style="opacity: 0.5"></span></a></li>                                   {{/if}}                                 {{/if}}                                 {{#unless isLastPage}}                                   <li><a href="#" class="next"><span class="glyphicon glyphicon-step-forward"></span></a></li>                                   {{#if pageNumbersEnabled}}                                     <li><a href="#" class="last"><span class="glyphicon glyphicon-fast-forward"></span></a></li>                                   {{/if}}                                 {{/unless}}                               </ul>                           </div>                           {{/if}}',
                 tableTemplate: "<table><thead></thead><tbody></tbody></table>",
                 headerTemplate: '<th width="{{width}}">{{title}}</th>',
                 sortableHeaderTemplate: '<th width="{{width}}">{{title}}<div class="sort-container pull-right"><span class="glyphicon glyphicon-arrow-up sort-ascending" style="opacity: 0.5"></span><span class="glyphicon glyphicon-arrow-down sort-descending" style="opacity: 0.5"></span></div></th>',

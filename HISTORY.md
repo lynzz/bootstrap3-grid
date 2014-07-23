@@ -22,7 +22,7 @@
 
 `NEW` onCheck回调 添加 check 参数
 
-`fixed` check 事件绑定之前先进行销毁
+`fixed` check 事件绑定之前先进行销毁,点击 a 链接不触发 check 事件
 
 ## 0.6.1
 
