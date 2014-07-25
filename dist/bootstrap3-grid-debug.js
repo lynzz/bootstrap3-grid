@@ -76,7 +76,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
             _originalSortColumn: null,
             init: function() {
                 var that = this;
-                that._currentPage = 1;
+                that._currentPage = +this._settings.pageNo || 1;
                 that.$element.empty();
                 that._sortOrder = this._settings.sortOrder;
                 that._sortedColumn = this._settings.initialSortColumn;
@@ -257,7 +257,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                                     that._sortOrder = that._sortOrder === "asc" ? "desc" : "asc";
                                 }
                                 setSortHeadings();
-                                that._refreshData();
+                                that._settings.onSort ? that._settings.onSort(that._sortOrder, that._sortedColumn) : that._refreshData();
                             }
                             if (sortContainer !== null) {
                                 sortContainer.click(function(event) {
@@ -401,14 +401,14 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     event.preventDefault();
                     if (!paginationModel.isFirstPage) {
                         that._currentPage--;
-                        that._refreshData();
+                        that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
                     }
                 });
                 that._nextButton.click(function(event) {
                     event.preventDefault();
                     if (!paginationModel.isLastPage) {
                         that._currentPage++;
-                        that._refreshData();
+                        that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
                     }
                 });
                 if (that._numberOfRows === null) {
@@ -419,14 +419,14 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                         event.preventDefault();
                         if (!paginationModel.isFirstPage) {
                             that._currentPage = 1;
-                            that._refreshData();
+                            that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
                         }
                     });
                     that._lastButton.click(function(event) {
                         event.preventDefault();
                         if (!paginationModel.isLastPage) {
                             that._currentPage = totalPages;
-                            that._refreshData();
+                            that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
                         }
                     });
                 }
@@ -434,7 +434,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     var source = $(ev.target);
                     ev.preventDefault();
                     that._currentPage = 1 * source.data("pagenumber");
-                    that._refreshData();
+                    that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
                 });
                 if (paginationModel.showGotoPage) {
                     function gotoTextPickerPage() {
@@ -447,7 +447,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                             if (that._currentPage > totalPages) {
                                 that._currentPage = totalPages;
                             }
-                            that._refreshData();
+                            that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
                         }
                     }
                     that._pageTextPicker.keydown(function(ev) {
@@ -786,6 +786,8 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 checkTemplate: '<input type="checkbox" class="checkbox" value="">',
                 onCheckAll: null,
                 onCheck: null,
+                onSort: null,
+                onPage: null,
                 // Event Handlers
                 emptyTemplateCreated: null,
                 gridCreated: null

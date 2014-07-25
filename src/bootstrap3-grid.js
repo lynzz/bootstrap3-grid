@@ -88,7 +88,7 @@ define(function(require, exports, module) {
 
       init: function() {
         var that = this;
-        that._currentPage = 1;
+        that._currentPage = +this._settings.pageNo || 1;
 
         that.$element.empty();
 
@@ -291,7 +291,7 @@ define(function(require, exports, module) {
                   that._sortOrder = that._sortOrder === "asc" ? "desc" : "asc";
                 }
                 setSortHeadings();
-                that._refreshData();
+                that._settings.onSort ? that._settings.onSort(that._sortOrder, that._sortedColumn) : that._refreshData();
               };
 
               if (sortContainer !== null) {
@@ -447,14 +447,16 @@ define(function(require, exports, module) {
           event.preventDefault();
           if (!paginationModel.isFirstPage) {
             that._currentPage--;
-            that._refreshData();
+            that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+            //that._refreshData();
           }
         });
         that._nextButton.click(function(event) {
           event.preventDefault();
           if (!paginationModel.isLastPage) {
             that._currentPage++;
-            that._refreshData();
+            that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+            //that._refreshData();
           }
         });
 
@@ -467,7 +469,8 @@ define(function(require, exports, module) {
             event.preventDefault();
             if (!paginationModel.isFirstPage) {
               that._currentPage = 1;
-              that._refreshData();
+              that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+              //that._refreshData();
             }
           });
 
@@ -475,7 +478,8 @@ define(function(require, exports, module) {
             event.preventDefault();
             if (!paginationModel.isLastPage) {
               that._currentPage = totalPages;
-              that._refreshData();
+              that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+              //that._refreshData();
             }
           });
         }
@@ -484,7 +488,8 @@ define(function(require, exports, module) {
           var source = $(ev.target);
           ev.preventDefault();
           that._currentPage = 1 * source.data("pagenumber");
-          that._refreshData();
+          that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+          //that._refreshData();
         });
 
         if (paginationModel.showGotoPage) {
@@ -499,7 +504,8 @@ define(function(require, exports, module) {
               if (that._currentPage > totalPages) {
                 that._currentPage = totalPages;
               }
-              that._refreshData();
+              that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+              //that._refreshData();
             }
           }
 
@@ -952,6 +958,9 @@ define(function(require, exports, module) {
         checkTemplate: '<input type="checkbox" class="checkbox" value="">',
         onCheckAll: null,
         onCheck: null,
+
+        onSort: null,
+        onPage: null,
 
         // Event Handlers
         emptyTemplateCreated: null,

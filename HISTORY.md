@@ -24,6 +24,8 @@
 
 `fixed` check 事件绑定之前先进行销毁,点击 a 链接不触发 check 事件
 
+`NEW` onPage 与 onSort
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持
