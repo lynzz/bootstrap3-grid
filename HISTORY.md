@@ -26,6 +26,8 @@
 
 `NEW` onPage 与 onSort
 
+`fixed` 刷新后 check 时数据没返回问题
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持

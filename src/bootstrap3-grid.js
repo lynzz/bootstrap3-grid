@@ -176,21 +176,19 @@ define(function(require, exports, module) {
         }
         var self = this;
         var options = self._settings;
-        var $tbody = self.$element.find('tbody');
         var $checkAll = this.$element.find('[data-role=checkAll]').first();
 
         self.$element.off('click', 'input[type=checkbox]').on('click', 'input[type=checkbox]', function(e) {
           e.stopPropagation();
           var $self = $(this);
-          var $checks = $tbody.find('input[type=checkbox]');
           var checked = $self.prop('checked');
           if ($self.data('role') == 'checkAll') {
-            $checks.prop('checked', checked);
+            self.$element.find('tbody :checkbox').prop('checked', checked);
             options.onCheckAll && options.onCheckAll.call(self, self._pageData, checked);
           } else {
-            var len = $checks.length;
+            var len = self.$element.find('tbody > tr').length;
             var checkedLen = self.$element.find('tbody :checked').length;
-            var index = $checks.index(this);
+            var index = $self.closest('tr').index();
 
             $checkAll.prop('checked', checkedLen === len);
             options.onCheck && options.onCheck.call(self, self._pageData[index], checked);
