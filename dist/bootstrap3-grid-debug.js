@@ -1,6 +1,6 @@
-define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "gallery/handlebars/1.0.2/handlebars-debug" ], function(require, exports, module) {
+define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "gallery/handlebars/1.3.0/handlebars-debug" ], function(require, exports, module) {
     var jQuery = require("$-debug");
-    var Handlebars = require("gallery/handlebars/1.0.2/handlebars-debug");
+    var Handlebars = require("gallery/handlebars/1.3.0/handlebars-debug");
     (function($) {
         var pluginName = "simplePagingGrid";
         var oldSimplePagingGrid = $.fn[pluginName];

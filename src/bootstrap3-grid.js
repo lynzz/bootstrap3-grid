@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
   var jQuery = require('$');
-  var Handlebars = require('gallery/handlebars/1.0.2/handlebars');
+  var Handlebars = require('gallery/handlebars/1.3.0/handlebars');
 
   (function ($) {
 

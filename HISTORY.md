@@ -28,6 +28,8 @@
 
 `fixed` 刷新后 check 时数据没返回问题
 
+`CHANGED` handlebars 版本升级为 1.3.0
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持
