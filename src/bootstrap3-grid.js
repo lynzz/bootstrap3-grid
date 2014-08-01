@@ -568,10 +568,17 @@ define(function(require, exports, module) {
           this._pageData = sourceData;
           this._numberOfRows = null;
         } else if ($.isPlainObject(sourceData)) {
+          if (sourceData.data === null) {
+            sourceData.data = {
+              listData: [],
+              pageNo: 1,
+              totalCount: 0
+            }
+          }
           // 给数据添加 rowIndex
           $.each(sourceData.data.listData, function(index) {
             sourceData.data.listData[index]['rowIndex'] = index + 1;
-          })
+          });
           this._pageData = sourceData.data.listData;
           this._numberOfRows = sourceData.data.totalCount;
         }

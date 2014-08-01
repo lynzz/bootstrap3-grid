@@ -502,6 +502,13 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     this._pageData = sourceData;
                     this._numberOfRows = null;
                 } else if ($.isPlainObject(sourceData)) {
+                    if (sourceData.data === null) {
+                        sourceData.data = {
+                            listData: [],
+                            pageNo: 1,
+                            totalCount: 0
+                        };
+                    }
                     // 给数据添加 rowIndex
                     $.each(sourceData.data.listData, function(index) {
                         sourceData.data.listData[index]["rowIndex"] = index + 1;
