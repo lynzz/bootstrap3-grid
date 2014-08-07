@@ -60,7 +60,13 @@
                     cellTemplates: [null, null, null, '<a href="###" data-id="{{OrderLineID}}">删除</a>'],
                     columnKeys: ["Name", "Price", "Quantity", null],
                     columnWidths: ["25%", "25%", "25%", null],
+                  sortable: [true, true, true, true],
+                  initialSortColumn: "OrderLineID",
                     pageNumber: 0,
+                  onSort: function(sortOrder, sortColumn, callback) {
+                    console.log(this)
+                    callback('/getOrder');
+                  },
                     minimumVisibleRows: 0,
                     dataUrl: '/getOrder'
 

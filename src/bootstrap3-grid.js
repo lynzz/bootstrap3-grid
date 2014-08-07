@@ -289,7 +289,9 @@ define(function(require, exports, module) {
                   that._sortOrder = that._sortOrder === "asc" ? "desc" : "asc";
                 }
                 setSortHeadings();
-                that._settings.onSort ? that._settings.onSort(that._sortOrder, that._sortedColumn) : that._refreshData();
+                that._settings.onSort ? that._settings.onSort.call(that,that._sortOrder, that._sortedColumn, function(url) {
+                  that._refreshData(url);
+                }) : that._refreshData();
               };
 
               if (sortContainer !== null) {
@@ -445,7 +447,9 @@ define(function(require, exports, module) {
           event.preventDefault();
           if (!paginationModel.isFirstPage) {
             that._currentPage--;
-            that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+            that._settings.onPage ? that._settings.onPage.call(that, that._currentPage, function(url) {
+              that._refreshData(url);
+            }) : that._refreshData();
             //that._refreshData();
           }
         });
@@ -453,7 +457,9 @@ define(function(require, exports, module) {
           event.preventDefault();
           if (!paginationModel.isLastPage) {
             that._currentPage++;
-            that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+            that._settings.onPage ? that._settings.onPage.call(that, that._currentPage, function(url) {
+              that._refreshData(url);
+            }) : that._refreshData();
             //that._refreshData();
           }
         });
@@ -467,7 +473,9 @@ define(function(require, exports, module) {
             event.preventDefault();
             if (!paginationModel.isFirstPage) {
               that._currentPage = 1;
-              that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+              that._settings.onPage ? that._settings.onPage.call(that, that._currentPage, function(url) {
+                that._refreshData(url);
+              }) : that._refreshData();
               //that._refreshData();
             }
           });
@@ -476,7 +484,9 @@ define(function(require, exports, module) {
             event.preventDefault();
             if (!paginationModel.isLastPage) {
               that._currentPage = totalPages;
-              that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+              that._settings.onPage ? that._settings.onPage.call(that, that._currentPage, function(url) {
+                that._refreshData(url);
+              }) : that._refreshData();
               //that._refreshData();
             }
           });
@@ -486,7 +496,9 @@ define(function(require, exports, module) {
           var source = $(ev.target);
           ev.preventDefault();
           that._currentPage = 1 * source.data("pagenumber");
-          that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+          that._settings.onPage ? that._settings.onPage.call(that, that._currentPage, function(url) {
+            that._refreshData(url);
+          }) : that._refreshData();
           //that._refreshData();
         });
 
@@ -502,7 +514,9 @@ define(function(require, exports, module) {
               if (that._currentPage > totalPages) {
                 that._currentPage = totalPages;
               }
-              that._settings.onPage ? that._settings.onPage(that._currentPage) : that._refreshData();
+              that._settings.onPage ? that._settings.onPage.call(that, that._currentPage, function(url) {
+                that._refreshData(url);
+              }) : that._refreshData();
               //that._refreshData();
             }
           }
@@ -703,8 +717,8 @@ define(function(require, exports, module) {
             dataToSort = that._settings.data;
             that._numberOfRows = that._settings.data.length;
           } else if ($.isPlainObject(that._settings.data)) {
-            dataToSort = that._settings.data.currentPage;
-            that._numberOfRows = that._settings.data.currentPage.length;
+            dataToSort = that._settings.data.listData;
+            that._numberOfRows = that._settings.data.listData.length;
           }
           sortedData = that._sortedColumn === null ? dataToSort : dataToSort.sort(function(a, b) {
             aVal = that._sortOrder === "asc" ? a[that._sortedColumn] : b[that._sortedColumn];
