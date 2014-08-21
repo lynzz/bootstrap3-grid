@@ -159,13 +159,13 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     var checked = $self.prop("checked");
                     if ($self.data("role") == "checkAll") {
                         self.$element.find("tbody :checkbox").prop("checked", checked);
-                        options.onCheckAll && options.onCheckAll.call(self, self._pageData, checked);
+                        options.onCheckAll && options.onCheckAll.call(self, self._pageData, checked, $self);
                     } else {
                         var len = self.$element.find("tbody > tr").length;
                         var checkedLen = self.$element.find("tbody :checked").length;
                         var index = $self.closest("tr").index();
                         $checkAll.prop("checked", checkedLen === len);
-                        options.onCheck && options.onCheck.call(self, self._pageData[index], checked);
+                        options.onCheck && options.onCheck.call(self, self._pageData[index], checked, $self);
                     }
                 });
                 self.$element.off("click", "tbody > tr").on("click", "tbody > tr", function(e) {
