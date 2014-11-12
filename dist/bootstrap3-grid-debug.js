@@ -523,12 +523,12 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                             totalCount: 0
                         };
                     }
-                    // 给数据添加 rowIndex
-                    $.each(sourceData.data.listData, function(index) {
-                        sourceData.data.listData[index]["rowIndex"] = index + 1;
-                    });
-                    this._pageData = sourceData.data.listData;
-                    this._numberOfRows = sourceData.data.totalCount;
+                    var data = sourceData.data;
+                    if (typeof this._settings.parseData === "function") {
+                        data.listData = this._settings.parseData(data);
+                    }
+                    this._pageData = data.listData;
+                    this._numberOfRows = data.totalCount;
                 } else if (sourceData === null || sourceData === undefined) {
                     this._pageData = [];
                     this._numberOfRows = 0;
@@ -807,6 +807,14 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 onCheck: null,
                 onSort: null,
                 onPage: null,
+                // 解析数据
+                parseData: function(data) {
+                    // 给数据添加 rowIndex
+                    $.each(data.listData, function(index) {
+                        data.listData[index]["rowIndex"] = index + 1;
+                    });
+                    return data.listData;
+                },
                 // Event Handlers
                 emptyTemplateCreated: null,
                 gridCreated: null

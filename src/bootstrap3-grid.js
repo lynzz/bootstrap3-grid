@@ -589,13 +589,13 @@ define(function(require, exports, module) {
               totalCount: 0
             }
           }
-          var listData = sourceData.data.listData;
-          if (this._settings.parseData === 'function') {
-            listData = this._settings.parseData(listData);
+          var data = sourceData.data;
+          if (typeof this._settings.parseData === 'function') {
+            data.listData = this._settings.parseData(data);
           }
 
-          this._pageData = listData;
-          this._numberOfRows = sourceData.data.totalCount;
+          this._pageData = data.listData;
+          this._numberOfRows = data.totalCount;
         }
         else if (sourceData === null || sourceData === undefined) {
           this._pageData = [];
@@ -983,12 +983,12 @@ define(function(require, exports, module) {
         onPage: null,
 
         // 解析数据
-        parseData: function(listData) {
+        parseData: function(data) {
           // 给数据添加 rowIndex
-          $.each(listData, function(index) {
-            listData[index]['rowIndex'] = index + 1;
+          $.each(data.listData, function(index) {
+            data.listData[index]['rowIndex'] = index + 1;
           });
-          return listData;
+          return data.listData;
         },
 
         // Event Handlers
