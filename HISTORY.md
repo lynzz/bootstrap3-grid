@@ -30,6 +30,8 @@
 
 `CHANGED` handlebars 版本升级为 1.3.0
 
+`NEW` parseData, 重新解析数据
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持

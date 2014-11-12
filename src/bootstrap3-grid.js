@@ -589,11 +589,12 @@ define(function(require, exports, module) {
               totalCount: 0
             }
           }
-          // 给数据添加 rowIndex
-          $.each(sourceData.data.listData, function(index) {
-            sourceData.data.listData[index]['rowIndex'] = index + 1;
-          });
-          this._pageData = sourceData.data.listData;
+          var listData = sourceData.data.listData;
+          if (this._settings.parseData === 'function') {
+            listData = this._settings.parseData(listData);
+          }
+
+          this._pageData = listData;
           this._numberOfRows = sourceData.data.totalCount;
         }
         else if (sourceData === null || sourceData === undefined) {
@@ -980,6 +981,15 @@ define(function(require, exports, module) {
 
         onSort: null,
         onPage: null,
+
+        // 解析数据
+        parseData: function(listData) {
+          // 给数据添加 rowIndex
+          $.each(listData, function(index) {
+            listData[index]['rowIndex'] = index + 1;
+          });
+          return listData;
+        },
 
         // Event Handlers
         emptyTemplateCreated: null,
