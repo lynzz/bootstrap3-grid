@@ -611,6 +611,14 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                         dataType: "json",
                         data: postData,
                         success: function(jsonData) {
+                            if (jsonData.result === "failure") {
+                                var onFail = that._settings.onFail;
+                                that.$element.empty();
+                                if (typeof onFail === "function") {
+                                    onFail(jsonData.messages);
+                                }
+                                return;
+                            }
                             that._fetchedData = true;
                             that._parseSourceData(jsonData);
                             that._loadData();
@@ -807,6 +815,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 onCheck: null,
                 onSort: null,
                 onPage: null,
+                onFail: null,
                 // 解析数据
                 parseData: function(data) {
                     // 给数据添加 rowIndex

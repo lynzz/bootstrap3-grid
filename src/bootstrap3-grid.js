@@ -695,6 +695,15 @@ define(function(require, exports, module) {
             dataType: 'json',
             data: postData,
             success: function(jsonData) {
+              if (jsonData.result === 'failure') {
+                var onFail = that._settings.onFail;
+
+                that.$element.empty();
+                if (typeof onFail === 'function') {
+                  onFail(jsonData.messages);
+                }
+                return;
+              }
               that._fetchedData = true;
               that._parseSourceData(jsonData);
               that._loadData();
@@ -981,6 +990,7 @@ define(function(require, exports, module) {
 
         onSort: null,
         onPage: null,
+        onFail: null,
 
         // 解析数据
         parseData: function(data) {
