@@ -9,10 +9,10 @@
 
     <!-- Le styles -->
     <link href="http://ue.17173cdn.com/a/lib/gallery/bootstrap/3.0.0/bootstrap.css" rel="stylesheet">
-	
-    <script type="text/javascript" src="http://ue.17173cdn.com/a/lib/seajs-2.2.1_jquery-2.1.0.js"></script>
+
+    <script type="text/javascript" src="../seajs-2.2.1_jquery-2.1.0.js"></script>
     <script src="../sea-config.js"></script>
-	<script type="text/javascript">
+    <script type="text/javascript">
 
         seajs.use(['$', 'jquery/mockjax/1.5.3/mockjax', '../demo'], function($) {
             $.mockjax({
@@ -20,7 +20,8 @@
                 dataType: 'json',
                 response: function(settings) {
                     this.responseText = {
-                        result: 'success',
+                        result: 'failure',
+                        messages: ['error'],
                         data: {
                             totalCount: 22,
                             pageSize: 1,
@@ -60,13 +61,16 @@
                     cellTemplates: [null, null, null, '<a href="###" data-id="{{OrderLineID}}">删除</a>'],
                     columnKeys: ["Name", "Price", "Quantity", null],
                     columnWidths: ["25%", "25%", "25%", null],
-                  sortable: [true, true, true, true],
-                  initialSortColumn: "OrderLineID",
+                    sortable: [true, true, true, true],
+                    initialSortColumn: "OrderLineID",
                     pageNumber: 0,
-                  onSort: function(sortOrder, sortColumn, callback) {
-                    console.log(this)
-                    callback('/getOrder');
-                  },
+                    onSort: function(sortOrder, sortColumn, callback) {
+                        console.log(this)
+                        callback('/getOrder');
+                    },
+                    onFail: function(msg) {
+                        console.log(msg || 'error');
+                    },
                     minimumVisibleRows: 0,
                     dataUrl: '/getOrder'
 
@@ -74,23 +78,23 @@
             });
         });
 
-	</script>
+    </script>
 </head>
 <body>
-	<header>
-        <div class="navbar navbar-default" role="navigation">
-          <div class="navbar-header">
-              <a class="navbar-brand" href="#">Simple Paging Grid - Async Example</a>
-          </div>
+<header>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Simple Paging Grid - Async Example</a>
         </div>
-    </header>
-    <section id="main">
-		<div class="container">
-			<div class="row">
-				<p>Below is a very simple example of a paging grid. View the source to see how it works.</p>
-				<div id="exampleGrid"></div>
-			</div>
-		</div>
-    </section>
+    </div>
+</header>
+<section id="main">
+    <div class="container">
+        <div class="row">
+            <p>Below is a very simple example of a paging grid. View the source to see how it works.</p>
+            <div id="exampleGrid"></div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

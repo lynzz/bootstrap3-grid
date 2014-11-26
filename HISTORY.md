@@ -32,6 +32,8 @@
 
 `NEW` parseData, 重新解析数据
 
+`NEW` onFail, ajax result 为 failure 的回调
+
 ## 0.6.1
 
 `CHANGED` 去掉 bootstrap 2 的支持
