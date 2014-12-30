@@ -706,7 +706,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     var originalData;
                     if (that._sourceData !== null) {
                         if (!$.isArray(that._sourceData)) {
-                            originalData = that._sourceData.currentPage;
+                            originalData = that._sourceData.data && that._sourceData.data.listData;
                             that._sourceData.currentPage = that._pageData;
                         } else {
                             originalData = that._sourceData;
@@ -742,6 +742,11 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                             }
                         }
                     });
+                    // 再刷新时表格内容和分页没生成
+                    if (!that.$element.find("table").length) {
+                        that.$element.append(that._table);
+                        that.$element.append(that._buttonBar);
+                    }
                     // See comment above
                     if (that._sourceData !== null) {
                         if (!$.isArray(that._sourceData)) {
