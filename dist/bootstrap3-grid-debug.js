@@ -618,6 +618,13 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                                     onFail(jsonData.messages);
                                 }
                                 return;
+                            } else if (jsonData.result === "login") {
+                                var onLogin = that._settings.onLogin;
+                                that.$element.empty();
+                                if (typeof onLogin === "function") {
+                                    onLogin(jsonData.messages);
+                                }
+                                return;
                             }
                             that._fetchedData = true;
                             that._parseSourceData(jsonData);
@@ -820,6 +827,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 onCheck: null,
                 onSort: null,
                 onPage: null,
+                onLogin: null,
                 onFail: null,
                 // 解析数据
                 parseData: function(data) {

@@ -703,6 +703,15 @@ define(function(require, exports, module) {
                   onFail(jsonData.messages);
                 }
                 return;
+              } else if (jsonData.result === 'login') {
+                var onLogin = that._settings.onLogin;
+
+                that.$element.empty();
+
+                if (typeof onLogin === 'function') {
+                  onLogin(jsonData.messages);
+                }
+                return;
               }
               that._fetchedData = true;
               that._parseSourceData(jsonData);
@@ -996,6 +1005,7 @@ define(function(require, exports, module) {
 
         onSort: null,
         onPage: null,
+        onLogin: null,
         onFail: null,
 
         // 解析数据
