@@ -1,0 +1,9 @@
+.idea
+dist
+.gitattributes
+.gitignore
+.jshintrc
+.spmignore
+.travis.yml
+LICENSE-MIT
+node_modules
