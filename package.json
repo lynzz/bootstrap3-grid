@@ -1,7 +1,7 @@
 {
   "family": "jquery",
   "name": "bootstrap3-grid",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "bootstrap3 grid",
   "homepage": "https://github.com/lynzz/bootstrap3-grid",
   "author": "lynzz",
@@ -23,6 +23,7 @@
       "bootstrap3-grid.css"
     ],
     "alias": {
+      "$": "$",
       "handlebars": "gallery/handlebars/1.3.0/handlebars"
     },
     "engines": {}

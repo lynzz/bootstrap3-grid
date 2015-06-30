@@ -2,6 +2,10 @@
 
 ---
 
+## 0.6.3
+
+`CHANGED`  添加方法 clearCellTemplates 和 修改 _parseSourceData
+
 ## 0.6.2
 
 `NEW` 添加 checkbox 支持
@@ -33,6 +37,7 @@
 `NEW` parseData, 重新解析数据
 
 `NEW` onFail, ajax result 为 failure 的回调
+
 
 ## 0.6.1
 

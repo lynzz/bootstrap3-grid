@@ -1,4 +1,4 @@
-define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "gallery/handlebars/1.3.0/handlebars-debug" ], function(require, exports, module) {
+define("jquery/bootstrap3-grid/0.6.3/bootstrap3-grid-debug", [ "$-debug", "gallery/handlebars/1.3.0/handlebars-debug" ], function(require, exports, module) {
     var jQuery = require("$-debug");
     var Handlebars = require("gallery/handlebars/1.3.0/handlebars-debug");
     (function($) {
@@ -197,6 +197,10 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                 if ($checkAll.prop("checked") && !isCheck) {
                     $checkAll.trigger("click");
                 }
+            },
+            // 清空单元格模板数据
+            clearCellTemplates: function() {
+                this._compiledCellTemplates = null;
             },
             _resetCheck: function() {
                 this.$element.find("[data-role=checkAll]").first().prop("checked", false);
@@ -525,7 +529,7 @@ define("jquery/bootstrap3-grid/0.6.2/bootstrap3-grid-debug", [ "$-debug", "galle
                     }
                     var data = sourceData.data;
                     if (typeof this._settings.parseData === "function") {
-                        data.listData = this._settings.parseData(data);
+                        data = this._settings.parseData(data);
                     }
                     this._pageData = data.listData;
                     this._numberOfRows = data.totalCount;
