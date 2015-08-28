@@ -230,6 +230,11 @@ var Handlebars = require('handlebars')['default'];
       }
     },
 
+    // 清空单元格模板数据
+    clearCellTemplates: function() {
+      this._compiledCellTemplates = null;
+    },
+
     _resetCheck: function() {
       this.$element.find('[data-role=checkAll]').first().prop('checked', false);
     },
@@ -590,11 +595,12 @@ var Handlebars = require('handlebars')['default'];
         }
         var data = sourceData.data;
         if (typeof this._settings.parseData === 'function') {
-          data.listData = this._settings.parseData(data);
+          data = this._settings.parseData(data);
         }
 
         this._pageData = data.listData;
         this._numberOfRows = data.totalCount;
+        this._currentPage = data.pageNo;
       }
       else if (sourceData === null || sourceData === undefined) {
         this._pageData = [];
