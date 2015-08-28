@@ -601,6 +601,7 @@ define(function(require, exports, module) {
 
           this._pageData = data.listData;
           this._numberOfRows = data.totalCount;
+          this._currentPage = data.pageNo;
         }
         else if (sourceData === null || sourceData === undefined) {
           this._pageData = [];
