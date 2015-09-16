@@ -6,4 +6,6 @@ dist
 .spmignore
 .travis.yml
 LICENSE-MIT
+spm_modules
 node_modules
+_site
