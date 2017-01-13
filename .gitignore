@@ -16,9 +16,11 @@ Thumbs.db
 *.swo
 *.pyc
 *.pyo
-build
-node_modules
+.build
 _site
 sea-modules
+spm_modules
+node_modules
 .cache
 dist
+npm-debug.log
