@@ -1,10 +1,6 @@
 {
   "name": "bootstrap3-grid",
-<<<<<<< HEAD
-  "version": "0.6.3",
-=======
-  "version": "0.6.4",
->>>>>>> spm-v3
+  "version": "0.6.5",
   "description": "bootstrap3 grid",
   "keywords": [ "bootstrap3-grid" ],
   "homepage": "https://github.com/lynzz/bootstrap3-grid",
@@ -30,7 +26,7 @@
     "url": "git://github.com/lynzz/bootstrap3-grid.git"
   },
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 5.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
@@ -79,23 +75,8 @@
     "test": "karma start test/karma.conf.js",
     "publish": "npm publish --registry http://registry.npmjs.org"
   },
-<<<<<<< HEAD
-  "keywords": [],
-  "licenses": "MIT",
-  "spm": {
-    "output": [
-      "bootstrap3-grid.js",
-      "bootstrap3-grid.css"
-    ],
-    "alias": {
-      "$": "$",
-      "handlebars": "gallery/handlebars/1.3.0/handlebars"
-    },
-    "engines": {}
-=======
   "dependencies": {
     "handlebars": "^1.3.0",
     "jquery": "^1.11.1"
->>>>>>> spm-v3
   }
 }
