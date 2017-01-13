@@ -19,8 +19,7 @@ function defaultUrlWriter(currentPage, sortColumn, sortOrder) {
   var anchor;
   if (sortColumn !== null) {
     anchor = "#{" + currentPage + "," + sortColumn + "," + sortOrder + "}";
-  }
-  else {
+  } else {
     anchor = "#{" + currentPage + "," + sortOrder + "}";
   }
   window.history.pushState(null, null, rootLocation + anchor);
@@ -28,7 +27,7 @@ function defaultUrlWriter(currentPage, sortColumn, sortOrder) {
 
 function defaultUrlReader() {
   if (location.hash.length > 0) {
-    var commaDelimited = location.hash.substring(2, location.hash.length-1);
+    var commaDelimited = location.hash.substring(2, location.hash.length - 1);
     var array = commaDelimited.split(',');
     return {
       currentPage: array[0] * 1,
@@ -130,7 +129,7 @@ SimplePagingGrid.prototype = {
       if (options.cellTemplates !== null) {
         this._settings.cellTemplates.splice(checkColumnIndex, count, checkTemplate);
       } else {
-        for(var i = 0; i < colSize; i++) {
+        for (var i = 0; i < colSize; i++) {
           if (i == checkColumnIndex) {
             cellTemplates[i] = checkTemplate;
           } else {
@@ -143,7 +142,7 @@ SimplePagingGrid.prototype = {
       if (options.headerTemplates !== null) {
         this._settings.headerTemplates.splice(checkColumnIndex, 0, CHECK_ALL_HTML);
       } else {
-        for(var j = 0; j < colSize; j++) {
+        for (var j = 0; j < colSize; j++) {
           if (j == checkColumnIndex) {
             headerTemplates[j] = CHECK_ALL_HTML;
             break;
@@ -237,7 +236,7 @@ SimplePagingGrid.prototype = {
     this.$element.find('[data-role=checkAll]').first().prop('checked', false);
   },
 
-  _buildTable: function () {
+  _buildTable: function() {
     var that = this;
     var settings = that._settings;
     that._table = $(that._settings.templates.tableTemplate());
@@ -245,14 +244,14 @@ SimplePagingGrid.prototype = {
     that._tbody = that._table.find("tbody");
 
     if (that._settings.columnDefinitionTemplates !== null) {
-      $.each(that._settings.columnDefinitionTemplates, function (index, template) {
+      $.each(that._settings.columnDefinitionTemplates, function(index, template) {
         $(template(index)).insertBefore(that._thead);
       });
     }
 
     if (that._settings.showHeader) {
       that._headerRow = $("<tr>").appendTo(that._thead);
-      $.each(that._settings.columnNames, function (index, columnName) {
+      $.each(that._settings.columnNames, function(index, columnName) {
         var sortEnabled = that._settings.sortable[index];
         var sortAscending;
         var sortDescending;
@@ -265,12 +264,18 @@ SimplePagingGrid.prototype = {
         if (that._settings.hasCheckbox && index == settings.checkColumnIndex) {
           headerCell = $(that._settings.headerTemplates[index]);
         } else if (that._settings.headerTemplates !== null && index < that._settings.headerTemplates.length && that._settings.headerTemplates[index] != null) {
-          headerCell = $(that._settings.headerTemplates[index]({ width: width, title: columnName }));
+          headerCell = $(that._settings.headerTemplates[index]({
+            width: width,
+            title: columnName
+          }));
         }
 
         if (sortEnabled) {
           if (headerCell === null) {
-            headerCell = $(that._settings.templates.sortableHeaderTemplate({ width: width, title: columnName }));
+            headerCell = $(that._settings.templates.sortableHeaderTemplate({
+              width: width,
+              title: columnName
+            }));
           }
           sortContainer = headerCell.find(".sort-container");
           sortAscending = headerCell.find(".sort-ascending");
@@ -291,21 +296,21 @@ SimplePagingGrid.prototype = {
               that._sortOrder = that._sortOrder === "asc" ? "desc" : "asc";
             }
             setSortHeadings();
-            that._settings.onSort ? that._settings.onSort.call(that,that._sortOrder, that._sortedColumn, function(url) {
+            that._settings.onSort ? that._settings.onSort.call(that, that._sortOrder, that._sortedColumn, function(url) {
               that._refreshData(url);
             }) : that._refreshData();
           };
 
           if (sortContainer !== null) {
-            sortContainer.click(function (event) {
+            sortContainer.click(function(event) {
               sort(event);
             });
           } else {
-            sortAscending.click(function (event) {
+            sortAscending.click(function(event) {
               sort(event);
             });
 
-            sortDescending.click(function (event) {
+            sortDescending.click(function(event) {
               sort(event);
             });
           }
@@ -314,7 +319,10 @@ SimplePagingGrid.prototype = {
           }
         } else {
           if (headerCell === null) {
-            headerCell = $(that._settings.templates.headerTemplate({ width: width, title: columnName }));
+            headerCell = $(that._settings.templates.headerTemplate({
+              width: width,
+              title: columnName
+            }));
           }
         }
         that._headerRow.append(headerCell);
@@ -323,33 +331,6 @@ SimplePagingGrid.prototype = {
       that._thead.remove();
     }
 
-<<<<<<< HEAD
-        if ($checkAll.prop('checked') && !isCheck) {
-          $checkAll.trigger('click');
-        }
-      },
-
-      // 清空单元格模板数据
-      clearCellTemplates: function() {
-        this._compiledCellTemplates = null;
-      },
-
-      _resetCheck: function() {
-        this.$element.find('[data-role=checkAll]').first().prop('checked', false);
-      },
-
-      _buildTable: function () {
-        var that = this;
-        var settings = that._settings;
-        that._table = $(that._settings.templates.tableTemplate());
-        that._thead = that._table.find("thead");
-        that._tbody = that._table.find("tbody");
-
-        if (that._settings.columnDefinitionTemplates !== null) {
-          $.each(that._settings.columnDefinitionTemplates, function (index, template) {
-            $(template(index)).insertBefore(that._thead);
-          });
-        }
     that._table.addClass(that._settings.tableClass);
 
     that._buildButtonBar();
@@ -413,8 +394,7 @@ SimplePagingGrid.prototype = {
         that._currentPage = result.currentPage;
         that._sortOrder = result.sortOrder;
         that._sortedColumn = result.sortColumn;
-      }
-      else {
+      } else {
         that._currentPage = that._settings.pageNumber;
         that._sortOrder = that._settings.sortOrder;
         that._sortedColumn = that._settings.initialSortColumn;
@@ -461,7 +441,11 @@ SimplePagingGrid.prototype = {
       pages: []
     };
     for (pageIndex = pageRange.firstPage; pageIndex <= pageRange.lastPage; pageIndex++) {
-      paginationModel.pages.push({ pageNumber: pageIndex, displayPageNumber: pageIndex, isCurrentPage: pageIndex == that._currentPage });
+      paginationModel.pages.push({
+        pageNumber: pageIndex,
+        displayPageNumber: pageIndex,
+        isCurrentPage: pageIndex == that._currentPage
+      });
     }
     that._buttonBarHtml = that._settings.templates.buttonBarTemplate(paginationModel);
     that._buttonBar = $(that._buttonBarHtml);
@@ -496,8 +480,7 @@ SimplePagingGrid.prototype = {
     if (that._numberOfRows === null) {
       that._firstButton.remove();
       that._lastButton.remove();
-    }
-    else {
+    } else {
       that._firstButton.click(function(event) {
         event.preventDefault();
         if (!paginationModel.isFirstPage) {
@@ -578,45 +561,6 @@ SimplePagingGrid.prototype = {
     }
   },
 
-<<<<<<< HEAD
-      _hideLoading: function() {
-        if (this._loadingOverlay !== null) {
-          this._loadingOverlay.remove();
-          this._loadingOverlay = null;
-        }
-      },
-      /**
-       * currentPage 改为 data.listData , totalRows 改为 data.totalCount, 并添加rowIndex
-       *
-       * @param sourceData
-       * @private
-       */
-      _parseSourceData: function(sourceData) {
-        this._sourceData = sourceData;
-        if ($.isArray(sourceData)) {
-          this._pageData = sourceData;
-          this._numberOfRows = null;
-        } else if ($.isPlainObject(sourceData)) {
-          if (sourceData.data === null) {
-            sourceData.data = {
-              listData: [],
-              pageNo: 1,
-              totalCount: 0
-            }
-          }
-          var data = sourceData.data;
-          if (typeof this._settings.parseData === 'function') {
-            data = this._settings.parseData(data);
-          }
-
-          this._pageData = data.listData;
-          this._numberOfRows = data.totalCount;
-          this._currentPage = data.pageNo;
-        }
-        else if (sourceData === null || sourceData === undefined) {
-          this._pageData = [];
-          this._numberOfRows= 0;
-=======
   _sizeLoadingOverlay: function() {
     if (this._loadingOverlay != null) {
       this._loadingOverlay.width(this.$element.width());
@@ -665,10 +609,9 @@ SimplePagingGrid.prototype = {
       this._pageData = data.listData;
       this._numberOfRows = data.totalCount;
       this._currentPage = data.pageNo;
-    }
-    else if (sourceData === null || sourceData === undefined) {
+    } else if (sourceData === null || sourceData === undefined) {
       this._pageData = [];
-      this._numberOfRows= 0;
+      this._numberOfRows = 0;
     }
     this._deferredCellTemplateCompilation();
   },
@@ -678,7 +621,7 @@ SimplePagingGrid.prototype = {
     if (that._compiledCellTemplates === null && that._settings.cellTemplates !== null) {
       var setArrayContext = $.isArray(that._sourceData);
       that._compiledCellTemplates = [];
-      $.each(that._settings.cellTemplates, function (innerIndex, cellTemplate) {
+      $.each(that._settings.cellTemplates, function(innerIndex, cellTemplate) {
         if (cellTemplate !== null) {
           var rowIndex;
           var templates = [];
@@ -687,15 +630,13 @@ SimplePagingGrid.prototype = {
             var templateText = suppliedTemplateText;
             if (setArrayContext) {
               templateText = '{{#with this.[' + rowIndex + ']}}' + templateText + '{{/with}}'
-            }
-            else {
+            } else {
               templateText = '{{#with currentPage.[' + rowIndex + ']}}' + templateText + '{{/with}}'
             }
             templates.push(Handlebars.compile(templateText));
           }
           that._compiledCellTemplates.push(templates);
-        }
-        else {
+        } else {
           that._compiledCellTemplates.push(null);
         }
       });
@@ -716,8 +657,7 @@ SimplePagingGrid.prototype = {
     if (newBinding !== undefined) {
       if ($.isArray(newBinding)) {
         that._settings.data = newBinding;
-      }
-      else {
+      } else {
         that._settings.dataUrl = newBinding;
         that._currentPage = 1;
       }
@@ -742,8 +682,7 @@ SimplePagingGrid.prototype = {
           }
           if (that._settings.pageRenderedEvent !== null) that._settings.pageRenderedEvent(that._pageData);
         });
-    }
-    else if (that._settings.dataUrl !== null) {
+    } else if (that._settings.dataUrl !== null) {
       if (that._pageData === undefined) {
         that._loadData();
         that._pageData = [];
@@ -798,8 +737,7 @@ SimplePagingGrid.prototype = {
           }
         }
       });
-    }
-    else {
+    } else {
       dataToSort = null;
       if ($.isArray(that._settings.data)) {
         dataToSort = that._settings.data;
@@ -823,7 +761,7 @@ SimplePagingGrid.prototype = {
       });
 
       if (that._numberOfPages() < that._currentPage) {
-        that._currentPage = that._numberOfPages()-1;
+        that._currentPage = that._numberOfPages() - 1;
       }
 
       that._fetchedData = true;
@@ -884,8 +822,7 @@ SimplePagingGrid.prototype = {
         if (!$.isArray(that._sourceData)) {
           originalData = that._sourceData.data && that._sourceData.data.listData;
           that._sourceData.currentPage = that._pageData;
-        }
-        else {
+        } else {
           originalData = that._sourceData;
           that._sourceData = that._pageData;
         }
@@ -933,8 +870,7 @@ SimplePagingGrid.prototype = {
       if (that._sourceData !== null) {
         if (!$.isArray(that._sourceData)) {
           that._sourceData.currentPage = originalData;
-        }
-        else {
+        } else {
           that._sourceData = originalData;
         }
       }
@@ -972,7 +908,7 @@ SimplePagingGrid.prototype = {
   }
 };
 
-$.fn[pluginName] = function (options) {
+$.fn[pluginName] = function(options) {
   var functionArguments = arguments;
   var templates = $.extend({
     buttonBarTemplate: '{{#if showPages}} \
@@ -1093,15 +1029,15 @@ $.fn[pluginName] = function (options) {
   }, options);
 
   settings.templates = {};
-  $.each(templates, function (index, value) {
+  $.each(templates, function(index, value) {
     settings.templates[index] = value !== null ? Handlebars.compile(value) : null;
   });
 
   var templateArrayProperties = ["cellContainerTemplates", "columnDefinitionTemplates", "headerTemplates", "rowTemplates"];
-  $.each(templateArrayProperties, function (index, propertyName) {
+  $.each(templateArrayProperties, function(index, propertyName) {
     var templateArray = settings[propertyName];
     if (templateArray !== null) {
-      $.each(templateArray, function (innerIndex) {
+      $.each(templateArray, function(innerIndex) {
         if (templateArray[innerIndex] !== null) {
           templateArray[innerIndex] = Handlebars.compile(templateArray[innerIndex]);
         }
@@ -1112,7 +1048,7 @@ $.fn[pluginName] = function (options) {
   if (settings.columnKeys === undefined && settings.data !== null && settings.data.length > 0) {
     var columnKey;
     settings.columnKeys = [];
-    for(columnKey in settings.data[0]) {
+    for (columnKey in settings.data[0]) {
       settings.columnKeys.push(columnKey);
     }
   }
@@ -1120,27 +1056,25 @@ $.fn[pluginName] = function (options) {
   if (settings.columnNames === undefined) {
     if (settings.columnKeys !== undefined) {
       settings.columnNames = settings.columnKeys.slice(0);
-    }
-    else {
+    } else {
       settings.columnNames = [];
     }
   }
 
-  return this.each(function () {
+  return this.each(function() {
     var data = $.data(this, "plugin_" + pluginName);
     var isMethodCall = functionArguments.length > 0 && (typeof functionArguments[0] == 'string' || functionArguments[0] instanceof String);
     if (!data || !isMethodCall) {
-      $.data(this, "plugin_" + pluginName, new SimplePagingGrid( this, settings ));
-    }
-    else {
-      data[functionArguments[0]].apply(data, Array.prototype.slice.call(functionArguments,1));
+      $.data(this, "plugin_" + pluginName, new SimplePagingGrid(this, settings));
+    } else {
+      data[functionArguments[0]].apply(data, Array.prototype.slice.call(functionArguments, 1));
     }
   });
 };
 
 $.fn[pluginName].Constructor = SimplePagingGrid;
 
-$.fn[pluginName].noConflict = function () {
+$.fn[pluginName].noConflict = function() {
   $.fn[pluginName] = oldSimplePagingGrid;
   return this
 }
