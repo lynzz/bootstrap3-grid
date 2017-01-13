@@ -1,8 +1,8 @@
 {
   "name": "bootstrap3-grid",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "bootstrap3 grid",
-  "keywords": [ "bootstrap3-grid", "pandora", "widget", "seajs" ],
+  "keywords": [ "bootstrap3-grid" ],
   "homepage": "https://github.com/lynzz/bootstrap3-grid",
   "bugs": {
     "url": "https://github.com/lynzz/bootstrap3-grid/issues"
@@ -13,6 +13,7 @@
       "url": "https://github.com/lynzz/bootstrap3-grid/blob/master/LICENSE-MIT"
     }
   ],
+  "main": "src/bootstrap3-grid",
   "author": {
     "name": "lynzz",
     "url": "https://github.com/lynzz"
@@ -27,33 +28,55 @@
   "engines": {
     "node": ">= 0.8.0"
   },
-  "dependencies": {
-  },
   "devDependencies": {
-    "gulp": "*",
-    "gulp-wrap": "^0.11.0",
-    "gulp-jshint": "^1.9.2",
-    "colorful": "^2.1.0",
-    "map-stream": "0.0.5"
-  },
-  "spm": {
-    "main": "index.js",
-    "dependencies": {
-      "jquery": "2.1.1",
-      "handlebars": "1.3.0"
-    },
-    "devDependencies": {
-      "expect.js": "0.3.1",
-      "sinon": "1.6.0"
-    },
-    "tests": "tests/*-spec.js",
-    "scripts": {
-      "postbuild": "gulp postbuild"
-    },
-    "buildArgs": "--ignore jquery"
+    "chai": "^3.5.0",
+    "connect-history-api-fallback": "^1.3.0",
+    "css-loader": "^0.26.1",
+    "eventsource-polyfill": "^0.9.6",
+    "expect.js": "^0.3.1",
+    "express": "^4.14.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "function-bind": "^1.1.0",
+    "handlebars-loader": "^1.4.0",
+    "html-webpack-plugin": "^2.24.1",
+    "http-proxy-middleware": "^0.17.3",
+    "isparta-loader": "^2.0.0",
+    "jshint": "^2.9.4",
+    "jshint-loader": "^0.8.3",
+    "karma": "^1.3.0",
+    "karma-coverage": "^1.1.1",
+    "karma-mocha": "^1.3.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-requirejs": "^1.1.0",
+    "karma-sinon-chai": "^1.2.4",
+    "karma-sinon-expect": "^0.1.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-webpack": "^1.8.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "mocha": "^3.2.0",
+    "phantomjs-prebuilt": "^2.1.3",
+    "requirejs": "^2.3.2",
+    "sinon": "^1.17.6",
+    "sinon-chai": "^2.8.0",
+    "sinon-expect": "^0.3.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.9.0",
+    "webpack-hot-middleware": "^2.13.2",
+    "webpack-merge": "^1.1.2"
   },
   "scripts": {
-    "test": "spm test",
-    "build": "spm build"
+    "dev": "node build/dev-server",
+    "build": "node build/build",
+    "test": "karma start test/karma.conf.js",
+    "publish": "npm publish --registry http://registry.npmjs.org"
+  },
+  "dependencies": {
+    "handlebars": "^1.3.0",
+    "jquery": "^1.11.1"
   }
 }

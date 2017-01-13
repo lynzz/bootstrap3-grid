@@ -1,0 +1,45 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/lzz/.nvm/versions/node/v5.0.0/bin/node',
+1 verbose cli   '/Users/lzz/.nvm/versions/node/v5.0.0/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'publish' ]
+2 info using npm@3.3.6
+3 info using node@v5.0.0
+4 verbose run-script [ 'prepublish', 'publish', 'postpublish' ]
+5 info lifecycle bootstrap3-grid@0.6.4~prepublish: bootstrap3-grid@0.6.4
+6 silly lifecycle bootstrap3-grid@0.6.4~prepublish: no script for prepublish, continuing
+7 info lifecycle bootstrap3-grid@0.6.4~publish: bootstrap3-grid@0.6.4
+8 verbose lifecycle bootstrap3-grid@0.6.4~publish: unsafe-perm in lifecycle true
+9 verbose lifecycle bootstrap3-grid@0.6.4~publish: PATH: /Users/lzz/.nvm/versions/node/v5.0.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/lzz/github/bootstrap3-grid/node_modules/.bin:/Users/lzz/.nvm/versions/node/v5.0.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin
+10 verbose lifecycle bootstrap3-grid@0.6.4~publish: CWD: /Users/lzz/github/bootstrap3-grid
+11 silly lifecycle bootstrap3-grid@0.6.4~publish: Args: [ '-c', 'npm publish --registry http://registry.npmjs.org' ]
+12 silly lifecycle bootstrap3-grid@0.6.4~publish: Returned: code: 1  signal: null
+13 info lifecycle bootstrap3-grid@0.6.4~publish: Failed to exec publish script
+14 verbose stack Error: bootstrap3-grid@0.6.4 publish: `npm publish --registry http://registry.npmjs.org`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/Users/lzz/.nvm/versions/node/v5.0.0/lib/node_modules/npm/lib/utils/lifecycle.js:233:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (/Users/lzz/.nvm/versions/node/v5.0.0/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:818:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+15 verbose pkgid bootstrap3-grid@0.6.4
+16 verbose cwd /Users/lzz/github/bootstrap3-grid
+17 error Darwin 16.0.0
+18 error argv "/Users/lzz/.nvm/versions/node/v5.0.0/bin/node" "/Users/lzz/.nvm/versions/node/v5.0.0/bin/npm" "run" "publish"
+19 error node v5.0.0
+20 error npm  v3.3.6
+21 error code ELIFECYCLE
+22 error bootstrap3-grid@0.6.4 publish: `npm publish --registry http://registry.npmjs.org`
+22 error Exit status 1
+23 error Failed at the bootstrap3-grid@0.6.4 publish script 'npm publish --registry http://registry.npmjs.org'.
+23 error This is most likely a problem with the bootstrap3-grid package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     npm publish --registry http://registry.npmjs.org
+23 error You can get their info via:
+23 error     npm owner ls bootstrap3-grid
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]

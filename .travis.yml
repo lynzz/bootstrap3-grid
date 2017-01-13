@@ -1,16 +1,13 @@
 language: node_js
 
 node_js:
-  - "0.10"
+  - "5.0.0"
 
 install:
-  - npm install spm coveralls
-
-before_script:
-  - node_modules/spm/bin/spm-install
+  - npm install
 
 script:
-  - node_modules/spm/bin/spm-test
+  - npm test
 
 after_success:
-  - node_modules/spm/bin/spm-test --coveralls | node_modules/.bin/coveralls
+  - bash <(curl -s https://codecov.io/bash)

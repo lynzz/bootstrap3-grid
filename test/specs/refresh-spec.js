@@ -1,12 +1,10 @@
-var expect = require('expect.js');
-var sinon = require('sinon');
 var $ = require('jquery');
 
 $(document.body).css({
     'margin': 0,
     'padding': 0
 });
-require('../src/bootstrap3-grid');
+require('../../src/bootstrap3-grid');
 
 var $gridElement;
 var server;
@@ -84,5 +82,3 @@ function createLargeArray(numberOfRows, startAtIndex) {
     }
     return rows;
 }
-
-

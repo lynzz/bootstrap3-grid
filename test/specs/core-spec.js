@@ -1,4 +1,3 @@
-var expect = require('expect.js');
 var $ = require('jquery');
 
 //window.$ = require('$');
@@ -6,7 +5,7 @@ $(document.body).css({
     'margin': 0,
     'padding': 0
 });
-require('../src/bootstrap3-grid');
+require('../../src/bootstrap3-grid');
 
 var $gridElement;
 
@@ -99,5 +98,3 @@ function simpleData() {
         {Name: "Oranges", Price: 2.25}
     ];
 }
-
-
