@@ -350,9 +350,7 @@ SimplePagingGrid.prototype = {
             $(template(index)).insertBefore(that._thead);
           });
         }
-=======
     that._table.addClass(that._settings.tableClass);
->>>>>>> spm-v3
 
     that._buildButtonBar();
   },
@@ -657,7 +655,6 @@ SimplePagingGrid.prototype = {
           listData: [],
           pageNo: 1,
           totalCount: 0
->>>>>>> spm-v3
         }
       }
       var data = sourceData.data;
