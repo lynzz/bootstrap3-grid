@@ -783,7 +783,6 @@ SimplePagingGrid.prototype = {
     if (that._settings.hasCheckbox) {
       that._resetCheck();
     }
-    debugger
     if (that._pageData !== undefined && that._pageData.length === 0 && that._currentPage == 1 && that._settings.templates.emptyTemplate !== null) {
       that.$element.empty();
       that._buttonBar = undefined;
